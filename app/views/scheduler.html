@@ -1,0 +1,84 @@
+<span ng-controller="SchedulerController" class="scheduler">
+<div class="row">
+    <div class="col-lg-6">
+        <div class="header">
+            <div class="form-group">
+                <p class="input-group">
+                    <input placeholder="To Date" type="text" datepicker-popup="{{format}}"
+                           is-open="opened"
+                           style="background-color: #fff;cursor: pointer;" ng-model="schedule_date" ng-change="checkDate()"
+                           min-date="minDate" max-date="maxDate" datepicker-options="dateOptions"
+                           date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"
+                           class="form-control" readonly/>
+                        <span class="input-group-btn">
+                           <button type="button" ng-click="open($event)" class="btn btn-default">
+                               <em class="fa fa-calendar"></em>
+                           </button>
+                        </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<table class="tableSchedule table-striped">
+    <thead>
+        <th class="rowScheduleHour">
+           <th class="userDet"> </th>
+            <th colspan="2" class="user_available">7 AM</th>
+            <th colspan="2" class="user_available">8 AM</th>
+            <th colspan="2" class="user_available">9 AM</th>
+            <th colspan="2" class="user_available">10 AM</th>
+            <th colspan="2" class="user_available">11 AM</th>
+            <th colspan="2" class="user_available">NOON</th>
+            <th colspan="2" class="user_available">1 PM</th>
+            <th colspan="2" class="user_available">2 PM</th>
+            <th colspan="2" class="user_available">3 PM</th>
+            <th colspan="2" class="user_available">4 PM</th>
+            <th colspan="2" class="user_available">5 PM</th>
+            <th colspan="2" class="user_available">6 PM</th>
+            <th colspan="2" class="user_available">7 PM</th>
+            <th colspan="2" class="user_available">8 PM</th>
+        </tr>
+        <tr class="rowScheduleHour">
+            <th class="userDet" ></th>
+            <th class="user_available_data">00</th>
+            <th class="user_available_data">30</th>
+            <th class="user_available_data">00</th>
+            <th class="user_available_data">30</th>
+            <th class="user_available_data">00</th>
+            <th class="user_available_data">30</th>
+            <th class="user_available_data">00</th>
+            <th class="user_available_data">30</th>
+            <th class="user_available_data">00</th>
+            <th class="user_available_data">30</th>
+            <th class="user_available_data">00</th>
+            <th class="user_available_data">30</th>
+            <th class="user_available_data">00</th>
+            <th class="user_available_data">30</th>
+            <th class="user_available_data">00</th>
+            <th class="user_available_data">30</th>
+            <th class="user_available_data">00</th>
+            <th class="user_available_data">30</th>
+            <th class="user_available_data">00</th>
+            <th class="user_available_data">30</th>
+            <th class="user_available_data">00</th>
+            <th class="user_available_data">30</th>
+            <th class="user_available_data">00</th>
+            <th class="user_available_data">30</th>
+            <th class="user_available_data">00</th>
+            <th class="user_available_data">30</th>
+            <th class="user_available_data">00</th>
+            <th class="user_available_data">30</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="schedule in schedules" class="rowSchedule">
+            <td class="userDet">
+                <img class="imgUser" src="{{schedule.technician_image}}">
+                <span>{{schedule.technician_first_name}} {{schedule.technician_last_name}}</span>
+            </td>
+            <td class="user_available_data" ng-repeat="available in schedule.schedule|limitTo:28"><span ng-bind-html="available.value|showColor:schedule.appointment_info:available.time"></span></td>
+        </tr>
+    </tbody>
+</table>
+</span>

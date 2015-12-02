@@ -1,0 +1,146 @@
+<h3>Active Promo
+    <small>Generate promo & get all current active promo codes</small>
+</h3>
+<div ng-controller="ActivePromoController" class="container-fluid">
+
+    <div class="panel panel-default" class="container-fluid">
+        <div class="panel-heading">
+            Add Promo Codes
+        </div>
+        <div class="panel-body set-calender-scroll">
+            <!--Column 1-Add Promo-->
+            <div class="col-lg-4 padding_left">
+                <div class="form-group" ng-controller="DatepickerDemoCtrl">
+                    <label class="label-promo">START DATE</label>
+
+                    <p class="input-group">
+                        <input type="text" datepicker-popup="{{format}}"
+                               ng-model="promo.start_date" is-open="opened"
+                               style="background-color: #fff;cursor: pointer;"
+                               min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions"
+                               date-disabled="disabled(date, mode)" close-text="Close"
+                               class="form-control" readonly/>
+                        <span class="input-group-btn">
+                           <button type="button" ng-click="open($event)" class="btn btn-default">
+                               <em class="fa fa-calendar"></em>
+                           </button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <!--Column 2-Add Promo-->
+            <div class="col-lg-4 padding_left">
+                <div class="form-group" ng-controller="DatepickerDemoCtrl">
+                    <label class="label-promo">END DATE</label>
+
+                    <p class="input-group">
+                        <input type="text" datepicker-popup="{{format}}"
+                               ng-model="promo.end_date" is-open="opened"
+                               style="background-color: #fff;cursor: pointer;" ng-change="checkDate()"
+                               min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions"
+                               date-disabled="disabled(date, mode)" close-text="Close"
+                               class="form-control" readonly/>
+                        <span class="input-group-btn">
+                           <button type="button" ng-click="open($event)" class="btn btn-default">
+                               <em class="fa fa-calendar"></em>
+                           </button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <!--Column 3-Add Promo-->
+            <div class="col-lg-4 padding_left">
+                <div class="form-group">
+                    <label class="label-promo">CREDITS ($)</label>
+                    <input type="text" ng-model="promo.credits" data-parsley-type="number"
+                           class="form-control" required="required"/>
+                </div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary" id='publish' ng-click="addPromo();"
+                        style="margin-right: 5px;">Submit
+                </button>
+                <!--<button type="button" class="btn btn-danger" id='reset' onClick="reset();">Cancel-->
+                <!--</button>-->
+            </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- START DATATABLE 2 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="table-responsive">
+                    <table id="datatable2" class="table table-striped table-hover"
+                           ng-class="{'whirl standard' : loading }">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Promo Code</th>
+                            <th>Credits($)</th>
+                            <th>Created Date</th>
+                            <th>Start Date</th>
+                            <th>Expiry Date</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="data in list">
+
+                            <td>{{$index + 1}}</td>
+                            <td>{{data.code}}</td>
+                            <td>{{data.credits}}</td>
+                            <td>{{data.create_date}}</td>
+                            <td>{{data.start_date}}</td>
+                            <td>{{data.expiry_date}}</td>
+                            <td>
+                                <button ng-click="deletePromo(data.code_id)" title="Delete"
+                                        class="btn btn-sm btn-danger pull-ext">
+                                    <em class="fa fa-trash-o"></em>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th>
+                                <input type="text" name="filter_index" placeholder="#"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_meal_name" placeholder="Promo Code"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_meal_description" placeholder="Credits($)"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_meal_image" placeholder="Created Date"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_mal_price" placeholder="Start Date"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_mal_price" placeholder="Expiry Date"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END DATATABLE 2 -->
+
+</div>
+<!--<style>-->
+<!--.dataTables_length, .dataTables_filter {-->
+<!--display: none;;-->
+<!--}-->
+<!--</style>-->

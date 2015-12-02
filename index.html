@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="myAppName">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="app/img/bite-kite.png"/>
+    <meta name="description" content="{{app.description}}">
+    <title data-ng-bind="pageTitle()">Click Labs</title>
+    <link rel="stylesheet" href="app/css/app.css">
+    <link rel="stylesheet" href="app/custom/css/custom-style.css">
+</head>
+
+<body data-ng-class="{ 'layout-fixed' : app.layout.isFixed, 'aside-collapsed' : app.layout.isCollapsed, 'layout-boxed' : app.layout.isBoxed, 'layout-fs': app.useFullLayout, 'hidden-footer': app.hiddenFooter, 'layout-h': app.layout.horizontal, 'aside-float': app.layout.isFloat}">
+<div data-ui-view="" data-autoscroll="false" class="wrapper"></div>
+<script src="app/js/base.js"></script>
+<script src="vendor/angular-google-maps/angular-google-maps.min.js"></script>
+<script src="vendor/angular-google-maps/lodash.min.js"></script>
+<script src="vendor/graphs/js/Chart.js" type="text/javascript"></script>
+<script src="vendor/graphs/js/angular-chart.js" type="text/javascript"></script>
+<script src="vendor/graphs/js/fusioncharts.js" type="text/javascript"></script>
+<script src="vendor/graphs/js/angular-fusioncharts.min.js" type="text/javascript"></script>
+<script src="app/js/app.js"></script>
+<script src="app/js/myApp.js"></script>
+<script src="app/js/controllers/login-ctrl.js"></script>
+<script src="app/js/controllers/dashboard-ctrl.js"></script>
+<script src="app/js/controllers/dashboard-new-ctrl.js"></script>
+<script src="app/js/controllers/customer-ctrl.js"></script>
+<script src="app/js/controllers/artist-ctrl.js"></script>
+<script src="app/js/controllers/session-ctrl.js"></script>
+<script src="app/js/controllers/service-ctrl.js"></script>
+<script src="app/js/controllers/payment-ctrl.js"></script>
+<script src="app/js/controllers/location-ctrl.js"></script>
+<script src="app/js/controllers/reports-ctrl.js"></script>
+<script src="app/js/controllers/promo-ctrl.js"></script>
+<script src="app/js/controllers/feedback-ctrl.js"></script>
+<link rel="stylesheet" href="app/custom/datetimepicker/jquery.datetimepicker.css">
+<script src="app/custom/datetimepicker/jquery.datetimepicker.js"></script>
+</body>
+
+</html>

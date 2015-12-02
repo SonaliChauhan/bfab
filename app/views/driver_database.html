@@ -1,0 +1,143 @@
+<h3>Driver Database
+    <small>All drivers information list</small>
+</h3>
+<div ng-controller="DriverDatabaseController" class="container-fluid">
+
+    <!-- START DATATABLE 2 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="table-responsive">
+                    <table id="datatable2" class="table table-striped table-hover"
+                           ng-class="{'whirl standard' : loading }">
+                        <thead>
+                        <tr>
+                            <th style="width:5px">#</th>
+                            <th style="width:10px">Driver Id</th>
+                            <th style="width:10px">Driver Name</th>
+                            <th style="width:10px">Driver Image</th>
+                            <th style="width:10px">Driver Email</th>
+                            <th style="width:10px">Driver Phone</th>
+                            <th style="width:10px">Sign Up Date</th>
+                            <th style="width:10px">Car Model</th>
+                            <th style="width:10px">Car Maker</th>
+                            <th style="width:10px">Approval Status</th>
+                            <th style="width:10px">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="data in list">
+
+                            <td>{{$index + 1}}</td>
+                            <td>{{data.user_id}}</td>
+                            <td>{{data.user_name}}</td>
+                            <td style="text-align: center;"><img class="image_radius" src="{{data.user_image}}"
+                                                                 width="60"
+                                                                 height="60"></td>
+                            <td>{{data.user_email}}</td>
+                            <td>{{data.phone_no}}</td>
+                            <td>{{data.date_registered}}</td>
+                            <td>{{data.car_model}}</td>
+                            <td>{{data.car_maker}}</td>
+                            <td style="text-align: center;">
+                                <div ng-switch="data.is_verified">
+                                    <div ng-switch-when="0" class="change-btn"
+                                         style="width: 94px;margin: 0 auto;">
+                                        <a style="width: 92px;padding: 3px;margin-bottom: 5px;"
+                                           class="btn btn-success" title="Refund"
+                                           ng-click="approvalstatus(data.user_id, 1)">
+                                            Approve
+                                        </a>
+                                        <a style="width: 92px;padding: 3px;" class="btn btn-danger"
+                                           title="Refund"
+                                           ng-click="approvalstatus(data.user_id, 2)">
+                                            Decline
+                                        </a>
+
+                                    </div>
+                                    <div ng-switch-when="1" class="change-btn">
+                                        <a class="btn btn-danger disabled reallocation_btn"
+                                           style="font-size: 15px; padding: 4px 16px 4px 16px;"
+                                           title="Driver is approved">
+                                            Approved
+                                        </a>
+
+                                    </div>
+                                    <div ng-switch-when="2" class="change-btn">
+                                        <a class="btn btn-danger disabled reallocation_btn"
+                                           style="font-size: 15px; padding: 4px 20px 4px 20px;"
+                                           title="Driver is rejected">
+                                            Declined
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="text-align: center;">
+                                <!--<a class="del-btn" ng-click="deletedriver(data.user_id)"-->
+                                   <!--title="Delete">-->
+                                    <!--<i class="fa fa-trash-o"></i>-->
+                                <!--</a>-->
+                                <button ng-click="deletedriver($index, data.user_id)" title="Delete"
+                                        class="btn btn-sm btn-danger">
+                                    <em class="fa fa-trash"></em>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th>
+                                <input type="text" name="filter_index" placeholder="#"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_meal_name" placeholder="Driver Id"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_meal_description" placeholder="Driver Name"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_meal_image" placeholder="Driver Image"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_mal_price" placeholder="Driver Email"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_remaining_meals" placeholder="Driver Phone"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_total_added_meals" placeholder="Sign Up Date"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_customizable" placeholder="Car Model"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_remaining_meals" placeholder="Car Maker"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_total_added_meals" placeholder="Approval Status"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_customizable" placeholder="Action"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END DATATABLE 2 -->
+
+</div>

@@ -1,0 +1,110 @@
+[
+  {
+    "text": "Menu Heading",
+    "heading": "true"
+  },
+  {
+    "text": "Dashboard",
+    "sref": "app.dashboard",
+    "icon": "icon-speedometer"
+  },
+  {
+    "text": "Customers",
+    "sref": "app.customers",
+    "icon": "icon-emoticon-smile"
+  },
+  {
+    "text": "Artist",
+    "sref": "#",
+    "icon": "icon-user-following",
+    "submenu": [
+      {
+        "text": "New Request",
+        "sref": "app.requested-artist"
+      },
+      {
+        "text": "Verified",
+        "sref": "app.verified-artist"
+      }
+    ]
+  },
+  {
+    "text": "Services",
+    "sref": "app.service",
+    "icon": "icon-magic-wand"
+  },
+  {
+    "text": "Sessions",
+    "sref": "#",
+    "icon": "icon-calendar",
+    "submenu": [
+           {
+        "text": "Ongoing",
+        "sref": "app.ongoing"
+      },
+      {
+        "text": "Upcoming",
+        "sref": "app.upcoming"
+      },
+      {
+        "text": "Past",
+        "sref": "app.past"
+      },
+      {
+        "text": "Cancelled",
+        "sref": "app.cancelled"
+      }
+    ]
+  },
+  {
+    "text": "Reports",
+    "sref": "app.reports",
+    "icon": "fa fa-newspaper-o"
+  },
+  {
+    "text": "Promo Codes",
+    "sref": "#",
+    "icon": "fa fa-key",
+    "submenu": [
+      {
+        "text": "Active",
+        "sref": "app.activepromo"
+      },
+      {
+        "text": "Expired",
+        "sref": "app.expiredpromo"
+      }
+        ]
+  },
+  {
+    "text": "Feedback",
+    "sref": "#",
+    "icon": "fa fa-comments",
+    "submenu": [
+      {
+        "text": "User",
+        "sref": "app.feedback"
+      },
+      {
+        "text": "Artist",
+        "sref": "app.artistfeedback"
+      }
+    ]
+  },
+  {
+    "text": "Payment",
+    "sref": "app.payment",
+    "icon": "icon-credit-card"
+  },
+  {
+    "text":"Email",
+    "sref":"app.Email",
+    "icon":"fa fa-comments"
+  },
+  {
+    "text":"Location",
+    "sref":"app.location",
+    "icon":"icon-emoticon-smile"
+  }
+
+]

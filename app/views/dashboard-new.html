@@ -1,0 +1,276 @@
+<span ng-controller="DashboardController">
+
+    <div class="row">
+        <div class="col-lg-3 col-md-6">
+            <!-- START panel-->
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <em class="fa fa-line-chart fa-5x"></em>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="text-lg">&#163;{{current.totalrevenue || 0}}</div>
+                            <p class="m0">Total Revenue</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- END panel-->
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <!-- START panel-->
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <em class="fa fa-shopping-cart fa-5x"></em>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="text-lg">{{current.servicescompleted || 0}}</div>
+                            <p class="m0">Service Completed</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END panel-->
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <!-- START panel-->
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <em class="fa fa-tasks fa-5x"></em>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="text-lg">{{current.servicesscheduled || 0}}</div>
+                            <p class="m0">Service Scheduled</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END panel-->
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <!-- START date widget-->
+            <div class="panel widget">
+                <div class="row row-table widget-time">
+                    <div class="col-xs-4 text-center bg-danger pv-lg">
+                        <!-- See formats: https://docs.angularjs.org/api/ng/filter/date-->
+                        <now format="MMMM" class="text-sm"></now>
+                        <br/>
+                        <now format="d" class="h2 mt0 txt_color"></now>
+                    </div>
+                    <div class="col-xs-8 pv-lg">
+                        <now format="EEEE" class="text-uppercase"></now>
+                        <br/>
+                        <now format="h:mm" class="h2 mt0"></now>
+                        <now format="a" class="text-muted text-sm"></now>
+                    </div>
+                </div>
+            </div>
+            <!-- END date widget -->
+        </div>
+    </div>
+    </span>
+<span ng-controller="dashboardController">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="header">
+                <div class="form-group">
+                    <p class="input-group">
+                        <input placeholder="Start Date" type="text" datepicker-popup="{{format}}"
+                               is-open="opened"
+                               style="background-color: #fff;cursor: pointer;text-align:center;" ng-model="start_date" ng-change="checkDate()"
+                               min-date="minDate" max-date="maxDate" datepicker-options="dateOptions"
+                               date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"
+                               class="form-control" readonly/>
+                        <span class="input-group-btn">
+                           <button type="button" ng-click="open($event)" class="btn btn-default">
+                               <em class="fa fa-calendar"></em>
+                           </button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="header">
+                <div class="form-group">
+                    <p class="input-group">
+                        <input placeholder="End Date" type="text" datepicker-popup="{{format}}"
+                               is-open="openedEnd"
+                               style="background-color: #fff;cursor: pointer;text-align:center;" ng-model="end_date" ng-change="checkDate()"
+                               min-date="minDate" max-date="maxDate" datepicker-options="dateOptions"
+                               date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"
+                               class="form-control" readonly/>
+                        <span class="input-group-btn">
+                           <button type="button" ng-click="openEnd($event)" class="btn btn-default">
+                               <em class="fa fa-calendar"></em>
+                           </button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="graph-container">
+            <div class="head-container"><span class="graphHead">Booking Overview</span></div>
+            <div id="chart1" fusioncharts type="mscombi2d" width="100%" height="300" dataSource="{{myDataSource}}" >
+            </div>
+        </div>
+        <div class="tblGraph" ng-if="bookingMadePlot">
+            <div class="rowBooking">
+                <div class="colBooking"></div>
+                    <div class="colHeader" ng-repeat="bookingLabel in labelBooking|limitTo:7">{{bookingLabel}}</div>
+            </div>
+            <div class="rowBooking">
+                <div class="colBooking">Bookings Made</div>
+                <div class="colBookingData" ng-repeat="booking in bookingMadePlot|limitTo:7 track by $index">
+                    <div class="">{{booking}}</div>
+                </div>
+            </div>
+            <div class="rowBooking">
+                <div class="colBooking">Bookings Served</div>
+                <div class="colBookingData" ng-repeat="booking in bookingServedPlot|limitTo:7 track by $index">
+                    <div class="">{{booking}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="graph-container">
+            <div class="head-container"><span class="graphHead">Bookings Revenue</span></div>
+            <div id="chart2" fusioncharts type="mscombi2d" width="100%" height="300" dataSource="{{myInvoiceData}}" ></div>
+        </div>
+        <div class="tblGraph" ng-if="invoiced">
+            <div class="rowBooking">
+                <div class="colBooking"></div>
+                <div class="colHeader" ng-repeat="bookingLabel in labelInvoiced|limitTo:7">{{bookingLabel}}</div>
+            </div>
+            <div class="rowBooking">
+                <div class="colBooking">Invoiced Value</div>
+                <div class="colBookingData" ng-repeat="invoice in invoiced|limitTo:7 track by $index">
+                    <div class="">{{invoice}}</div>
+                </div>
+            </div>
+            <div class="rowBooking">
+                <div class="colBooking">Average Service Value</div>
+                <div class="colBookingData" ng-repeat="invoice in avg_service_price|limitTo:7 track by $index">
+                    <div class="">{{invoice}}</div>
+                </div>
+            </div>
+            <div class="rowBooking">
+                <div class="colBooking">Discounts</div>
+                <div class="colBookingData" ng-repeat="invoice in discounts|limitTo:7 track by $index">
+                    <div class="">{{invoice}}</div>
+                </div>
+            </div>
+            <div class="rowBooking">
+                <div class="colBooking">Staff Cost</div>
+                <div class="colBookingData" ng-repeat="invoice in staff_cost|limitTo:7 track by $index">
+                    <div class="">{{invoice}}</div>
+                </div>
+            </div>
+            <div class="rowBooking">
+                <div class="colBooking">Gross Margin</div>
+                <div class="colBookingData" ng-repeat="invoice in gross_margin|limitTo:7 track by $index">
+                    <div class="">{{invoice}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="graph-container">
+                <div class="head-container"><span class="graphHead">Forward Booking Trend</span></div>
+                <canvas id="barFuture" data="futureBooking" labels="labelBookings" legend="true" class="chart chart-bar" series="seriesFuture" colours ="coloursBook"></canvas>
+            </div>
+            <div class="tblGraph" ng-if="futureBookingCount">
+                <div class="rowBooking">
+                    <div class="colBooking"></div>
+                    <div class="colHeader" ng-repeat="bookingLabel in labelFutureBooking|limitTo:7">{{bookingLabel}}</div>
+                </div>
+                <div class="rowBooking">
+                    <div class="colBooking">Future Appointments</div>
+                    <div class="colBookingData" ng-repeat="appointment in futureBookingCount|limitTo:7 track by $index">
+                        <div class="">{{appointment}}</div>
+                    </div>
+                </div>
+                <div class="rowBooking">
+                    <div class="colBooking">12 Week Average</div>
+                    <div class="colBookingData" ng-repeat="appointment in futureBookingAverage|limitTo:7 track by $index">
+                        <div class="">{{appointment}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="graph-container">
+                <div class="head-container"><span class="graphHead">Forward Availability Trend</span></div>
+                <canvas id="barStaff" data="staffBooking" labels="labelBookings" legend="true" class="chart chart-bar" series="seriesStaff" colours ="coloursBook"></canvas>
+            </div>
+            <div class="tblGraph" ng-if="staffAvailabiltyHours">
+                <div class="rowBooking">
+                    <div class="colBooking"></div>
+                    <div class="colHeader" ng-repeat="bookingLabel in labelFutureBooking|limitTo:7">{{bookingLabel}}</div>
+                </div>
+                <div class="rowBooking">
+                    <div class="colBooking">Total Staff Availability (Hours)</div>
+                    <div class="colBookingData" ng-repeat="staff in staffAvailabiltyHours|limitTo:7 track by $index">
+                        <div class="">{{staff}}</div>
+                    </div>
+                </div>
+                <div class="rowBooking">
+                    <div class="colBooking">12 Week Average</div>
+                    <div class="colBookingData" ng-repeat="staff in staffAvailabiltyAverage|limitTo:7 track by $index">
+                        <div class="">{{staff}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="graph-container">
+                <div class="head-container"><span class="graphHead">Average Customer Rating</span></div>
+                <canvas id="barCustomer" data="customerBooking" labels="labelCustomer" legend="true" class="chart chart-bar" series="seriesCustomer" colours ="coloursBook"></canvas>
+            </div>
+            <div class="tblGraph" ng-if="customerBookingAverage">
+                <div class="rowBooking">
+                    <div class="colBookingCustomer"></div>
+                    <div class="colHeader" ng-repeat="bookingLabel in labelBooking|limitTo:7">{{bookingLabel}}</div>
+                    <!--<div class="colHeader" ng-show="customerBookingAverage.length>=1">12 week average</div>-->
+                </div>
+                <div class="rowBooking">
+                    <div class="colBookingCustomer">Average Customer Rating</div>
+                    <div class="colBookingData" ng-repeat="customer in customerBookingAverage|limitTo:7 track by $index">
+                        <div class="">{{customer}}</div>
+                    </div>
+                </div>
+                <div class="rowBooking">
+                    <div class="colBookingCustomer">% of customers who rated</div>
+                    <div class="colBookingData" ng-repeat="customer in customerBookingPercent|limitTo:7 track by $index">
+                        <div class="">{{customer}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="tblGraphUpcoming" ng-if="customerBookingAverage">
+                <h1 class="upcomingHeader">What's coming up next</h1>
+                <div class="rowBooking" ng-repeat="upcoming in upcomingBooking">
+                    <div class="colHeaderUpcoming" >
+                        <div class="upcomingBookings">Appointment - {{upcoming.service_name}} for {{upcoming.customer_name}}</div>
+                        <div class="upcomingBookings">{{upcoming.local_start_time|changeDateFormat}}-{{upcoming.stylist_name}}-{{upcoming.address}}</div>
+                    </div>
+                    <!--<div class="colHeader" ng-show="customerBookingAverage.length>=1">12 week average</div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</span>

@@ -1,0 +1,383 @@
+<h3>Add Manual Sessions
+    <small>Add manual sessions</small>
+</h3>
+<div class="container-fluid">
+
+    <!-- START panel-->
+    <div class="panel panel-default col-sm-6">
+        <div class="panel-body">
+
+            <div>
+                <tabset class="tab-container" ng-init="steps={percent:20, step1:true, step2:false, step3:false}">
+                    <tab heading="Step 1" active="steps.step1" select="steps.percent=10">
+                        <p class="m-b">Register User.</p>
+                        <progressbar value="steps.percent" class="progress-xs" type="success"></progressbar>
+
+                        <!--STEP 1 FORM (REGISTRATION) -->
+                        <form role ="form" validate-form="" novalidate=""name="step1"  ng-controller="Step1Controller"
+                              ng-submit="steps.step2=true ; register()">
+                            <div class="form-group">
+                                <label class="label-session">EMAIL</label>
+
+                                <div class="controls">
+                                    <input type="text" required="required" data-parsley-type="email"  ng-model="addStep1.email"
+                                           placeholder="Email Id"
+                                           class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-hide="islogin">
+                                <label class="label-session">FIRST NAME</label>
+
+                                <div class="controls">
+                                    <input type="text" data-parsley-group="step1" ng-model="addStep1.first_name"
+                                           placeholder="First Name" required="required"
+                                           class="form-control remove_req" ng-disabled="islogin"/>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-hide="islogin">
+                                <label class="label-session">LAST NAME</label>
+
+                                <div class="controls">
+                                    <input type="text" data-parsley-group="step1" ng-model="addStep1.last_name"
+                                           placeholder="Last Name" required="required"
+                                           class="form-control remove_req" ng-disabled="islogin"/>
+                                </div>
+                            </div>
+                            <!--<div class="form-group" ng-hide="islogin">-->
+                            <!--<label class="label-session">GNEDER</label>-->
+
+                            <!--<div class="controls clearfix">-->
+                            <!--<div class="radio c-radio gender">-->
+                            <!--<label class="label-session">-->
+                            <!--<input type="radio" value="male" name="gender" checked-->
+                            <!--ng-disabled="islogin" ng-model="addStep1.gender">-->
+                            <!--<span class="fa fa-circle"></span>MALE</label>-->
+                            <!--</div>-->
+                            <!--<div class="radio c-radio gender">-->
+                            <!--<label class="label-session">-->
+                            <!--<input type="radio" value="female" name="gender"-->
+                            <!--ng-disabled="islogin" ng-model="addStep1.gender">-->
+                            <!--<span class="fa fa-circle"></span>FEMALE</label>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <div class="form-group" ng-hide="islogin">
+                                <label class="label-session"  >MOBILE NO.</label>
+
+                                <div class="controls">
+                                    <input type="text"  data-parsley-group="step1"  ng-model="addStep1.mobile" ui-mask="(99999) 999-999"
+                                            required="required" data-inputmask="'mask':'(99999) 999-999'"
+                                           class="form-control remove_req" ng-disabled="islogin"/>
+                                </div>
+                            </div>
+                            <!--<div ng-hide="islogin"><a ng-click="login(1)">Already a user?</a>-->
+                            <!--</div>-->
+                            <!--<div ng-show="islogin"><a ng-click="login(0)">Not a user yet?</a>-->
+                            <!--</div>-->
+                            <!--data-inputmask="'mask':'(99999)-999-999'"-->
+                            <!--<div>-->
+                                <!--<button type="submit"class="btn btn-default btn-rounded">Next-->
+                                <!--</button>-->
+                            <!--</div>-->
+
+                            <div class="m-t m-b">
+                                <button type="submit" class="btn btn-default btn-rounded">Next
+                                </button>
+                            </div>
+                        </form>
+                        <!--STEP 1 FORM (REGISTRATION) END -->
+
+                    </tab>
+                    <tab heading="Step 2" active="steps.step2" select="steps.percent=30">
+
+                        <!--STEP 2 FORM (PAYMENT) -->
+
+                        <div class="slide-animate" ng-include="app/custom/angular-payments/example/index.html"></div>
+
+                        <form name="step2" class="form-validation" ng-controller="Step2Controller"
+                              stripe-form="stripeCallback">
+                            <p class="m-b">Payment</p>
+                            <progressbar value="steps.percent" class="progress-xs" type="success"></progressbar>
+
+                            <div ng-hide="is_card_selected" class="form-group padding_left clearfix">
+                        <span style="margin-bottom: 10px;" class="col-sm-12 padding_left">
+                        <input type="text" masked="" data-inputmask="'mask': '9999 9999 9999 9999'"
+                               ng-model="number" payments-format="card"
+                               required="required" placeholder="Credit Card Number" class="form-control">
+                        </span>
+                        <span class="col-sm-4 padding_left">
+                        <input masked="" type="text" placeholder="Card Type"
+                               ng-model="card_type" required="required" class="form-control"/>
+                        </span>
+                        <span class="col-sm-4 padding_left">
+                        <input masked="" type="text" placeholder="CVV/CVC"
+                               ng-model="cvc" maxlength="4" payments-format="cvc"
+                               required="required" class="form-control"/>
+                        </span>
+                        <span class="col-sm-4 padding_left">
+                        <input type="text" masked="" data-inputmask="'mask': '99/9999'" placeholder="DD/YYYY"
+                               ng-model="expiry" payments-format="expiry"
+                               required="required" class="form-control"/>
+                        </span>
+
+                            </div>
+
+                            <!--<div class="form-group">-->
+                            <!--<button type="submit" class="btn btn-default btn-rounded">SUBMIT</button>-->
+                            <!--</div>-->
+
+
+                            <!-- STEP 2 START DATATABLE -->
+                            <!--//ng-show="card_check"-->
+
+
+
+                            <div class="table-responsive">
+                                <table id="datatable2" class="table table-striped table-hover"
+                                       ng-class="{'whirl standard' : loading }">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Card Number</th>
+                                        <th>Card Added On</th>
+                                        <th>Card Type</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="data in cards">
+
+                                        <td>
+                                            <input type="radio" name="rad" ng-model="card_used.card_select"
+                                                   checked="checked"
+                                                   data-waschecked="true" value="{{data}}">
+                                        </td>
+                                        <td><a class="link_color"
+                                              >XXXX XXXX XXXX
+                                            {{data.last_4}}</a>
+                                        </td>
+                                        <td><a class="link_color"
+                                              >{{data.created_at.split('T')[0]}}</a>
+                                        </td>
+                                        <td><a class="link_color"
+                                               >{{data.card_type}}</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- STEP 2 END DATATABLE -->
+
+                            <div class="m-t m-b">
+                                <button ng-show='is_card_selected' type="button" class="btn btn-default btn-rounded"
+                                        ng-click="reset_card()">
+                                    Add Card
+                                </button>
+                                <button type="button" class="btn btn-default btn-rounded"
+                                        ng-click="steps.step1=true">
+                                    Prev
+                                </button>
+                                <button type="submit"
+                                        class="btn btn-default btn-rounded"
+                                        ng-click="checkCard();">Next
+                                </button>
+                            </div>
+                        </form>
+
+                        <!--STEP 2 FORM (PAYMENT) END -->
+
+                    </tab>
+                    <tab heading="Step 3" disabled="step2.$invalid" active="steps.step3" select="steps.percent=60">
+
+                        <!--STEP 3 FORM (BOOKING) -->
+
+                        <form name="step3" class="form-validation" ng-controller="Step3Controller"
+                              ng-submit="service_type(); booking()  ">
+                            <p class="m-b">Booking</p>
+                            <progressbar value="steps.percent" class="progress-xs" type="success"></progressbar>
+
+                            <div class="form-group" ng-controller="DatepickerDemoCtrl">
+                                <label class="label-session">BOOKING DATE</label>
+
+                                <input class="form-control back_white" id="datetimepicker" type="text"
+                                       ng-model="addStep3.booking_date" readonly>
+
+                                <!--<p class="input-group">-->
+                                <!--<input type="text" datepicker-popup="{{format}}"-->
+                                <!--ng-model="addStep3.booking_date" is-open="opened"-->
+                                <!--min-date="minDate" max-date="" datepicker-options="dateOptions"-->
+                                <!--date-disabled="disabled(date, mode)" close-text="Close"-->
+                                <!--class="form-control back_white" readonly/>-->
+                                <!--<span class="input-group-btn">-->
+                                <!--<button type="button" ng-click="open($event)" class="btn btn-default">-->
+                                <!--<em class="fa fa-calendar"></em>-->
+                                <!--</button>-->
+                                <!--</span>-->
+                                <!--</p>-->
+                            </div>
+
+                            <hr/>
+
+                            <div class="form-group">
+                                <label class="label-session">SERVICE TYPE</label>
+
+                                <div class="controls">
+                                    <!--<select class="form-control m-bot15"-->
+                                    <!--placeholder="choose" style="width:100%;"-->
+                                    <!--ng-change="selectService(addStep3.service_list)"-->
+                                    <!--ng-model="addStep3.service_list" value="addStep3.service_list"-->
+                                    <!--ng-options="option.name for option in options">-->
+                                    <!--</select>-->
+
+
+                                    <!--<ui-select ng-model="addStep3.service_list" theme="bootstrap"-->
+                                    <!--ng-disabled="disabled">-->
+                                    <!--<ui-select-match placeholder="Select Services">{{$item.name}}</ui-select-match>-->
+                                    <!--<ui-select-choices repeat="category in options | filter:$select.search">-->
+                                    <!--{{category.name}}-->
+                                    <!--</ui-select-choices>-->
+                                    <!--</ui-select>-->
+                                    <!--<select data-ng-model="addStep3.service_list" data-ng-options="category.name for category in serviceArray" data-ng-change="updateService()">-->
+                                        <!--<option value="">Select service</option>-->
+                                    <!--</select>-->
+
+                                    <select ng-model="addStep3.service_list"  class="form-control" ng-change="getSubArray(addStep3.service_list) ">
+                                        <option ng-repeat="category in options" value="{{category.id}}">{{category.name}}</option>
+                                    </select>
+
+
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                            <label class="label-session">SERVICES</label>
+
+                            <div class="controls">
+                            <!--<input type="text" data-parsley-group="step2" ng-model="addStep3.service_type"-->
+                            <!--placeholder="Service Type" required="required" value="addStep3.service_type"-->
+                            <!--class="form-control remove_req back_white" />-->
+                                <select ng-model="addStep3.service_type" class="form-control" ng-disabled="!addStep3.service_list" ng-change="service_type1(addStep3.service_type)">
+                                    <option ng-repeat="category in serviceCategory" value="{{category}}">{{category.name}}</option>
+                                </select>
+                            </div>
+                            </div>
+
+                            <div class="form-group">
+                            <label class="label-session">SERVICE PRICE(&#163;):</label> <br>
+
+                            <div class="controls">
+                            <input type="text"
+                            placeholder="Service Price" class="form-control remove_req back_white"    />
+                            </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="label-session">SERVICE TIME(min) :</label>  <br>
+                                <div class="controls">
+                                    <input type="text"
+                                    placeholder="Service Time" class="form-control remove_req back_white"/>
+                                </div>
+                                </div>
+
+
+                                <!--<div class="form-group">-->
+                            <!--<label class="label-session">SERVICE TIME</label>-->
+
+                            <!--<div class="controls">-->
+                            <!--<input type="text" data-parsley-group="step2" ng-model="addStep3.service_time"-->
+                            <!--placeholder="Service Time" required="required"-->
+                            <!--class="form-control remove_req back_white" readonly/>-->
+                            <!--</div>-->
+                            <!--</div>-->
+
+                            <div class="form-group">
+                                <label class="label-session">INSTRUCTIONS</label>
+
+                                <div class="controls">
+                                    <textarea type="text" data-parsley-group="step2" ng-model="addStep3.instructions" ng-init="addStep3.instructions='' "
+                                              placeholder="Instructions"
+                                              class="form-control remove_req"></textarea>
+                                </div>
+                            </div>
+
+                            <hr/>
+
+                            <div class="form-group">
+                                <label class="label-session">HOUSE NO.</label>
+
+                                <div class="controls">
+                                    <input type="text" data-parsley-group="step2" ng-model="addStep3.house_no"
+                                           placeholder="House No." required="required"
+                                           class="form-control remove_req" ng-disabled="islogin"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="label-session">ADDRESS</label>
+
+                                <div class="controls">
+                                    <textarea type="text" data-parsley-group="step2" ng-model="addStep3.address"
+                                              placeholder="Address" required="required"
+                                              class="form-control remove_req" ng-disabled="islogin"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="label-session">CITY</label>
+
+                                <div class="controls">
+                                    <input type="text" value="London" data-parsley-group="step2" ng-model="addStep3.city"
+                                           placeholder="London" readonly=""
+                                           class="form-control remove_req"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="label-session">POSTCODE</label>
+
+                                <div class="controls">
+                                    <input type="text" data-parsley-group="step2" ng-model="addStep3.post_code"
+                                           placeholder="Post Code" required="required"
+                                           class="form-control remove_req"/>
+                                </div>
+                            </div>
+
+                         
+
+                            <div class="form-group">
+                                <label class="label-session">Having a Promo Code?</label>
+
+                                <div class="controls">
+                                    <input type="text" data-parsley-group="step2" ng-model="addStep3.promoCode" ng-init="addStep3.promoCode='' "
+                                           placeholder="Promo Code"
+                                           class="form-control remove_req"/>
+                                </div>
+                            </div>
+
+                            <div class="m-t m-b">
+                                <button type="button" class="btn btn-default btn-rounded"
+                                        ng-click="steps.step2=true">
+                                    Prev
+                                </button>
+                                <button type="submit" ng-disabled="step3.$invalid"
+                                        class="btn btn-default btn-rounded"  ng-click="steps.percent=100">Click
+                                    me to Finish
+                                   
+                                </button>
+                            </div>
+                        </form>
+
+                        <!--STEP 3 FORM (BOOKING) END 
+
+                    </tab>
+                </tabset>
+            </div>
+
+        </div>
+    </div>
+    <!-- END panel -->
+
+</div>
+
+<!-- END panel -->

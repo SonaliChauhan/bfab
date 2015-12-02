@@ -1,0 +1,123 @@
+<span ng-controller="PastSessionController">
+<h3>Past Sessions
+    <small>Get all past sessions list</small>
+</h3>
+<div class="container-fluid">
+
+    <!-- START DATATABLE 2 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="table-responsive">
+                    <table id="datatable2" class="table table-striped table-hover"
+                           ng-class="{'whirl standard' : loading }">
+                        <thead>
+                        <tr>
+                            <th style="width: 40px;">#</th>
+                            <th>Service Date</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Actual Start Time</th>
+                            <th>Actual End Time</th>
+                            <th>Category</th>
+                            <th>Service Name</th>
+                            <th>Customer Name</th>
+                            <th>Artist Name</th>
+                            <th>Service Location</th>
+                            <th>Cost($)</th>
+                            <th>Rating</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="data in list">
+
+                            <td>{{$index + 1}}</td>
+                            <td>{{data.service_date}}</td>
+                            <td>{{data.start_time}}</td>
+                            <td>{{data.end_time}}</td>
+                            <td>{{data.actual_start_time}}</td>
+                            <td>{{data.actual_end_time}}</td>
+                            <td ng-switch="data.category">
+                                <div ng-switch-when="1">
+                                    Hair
+                                </div>
+                                <div ng-switch-when="2">
+                                    Make-up
+                                </div>
+                                <div ng-switch-when="3">
+                                    Hair, Make-up
+                                </div>
+                            </td>
+                            <td>{{data.service_name}}</td>
+                            <td>{{data.customer_name}}</td>
+                            <td>{{data.artist_name}}</td>
+                            <td>{{data.address}}</td>
+                            <td>{{data.cost}}</td>
+                            <td>{{data.rating}}</td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th>
+                                <input type="text" name="filter_index" placeholder="#"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_meal_name" placeholder="Service Date"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_meal_description" placeholder="Start Time"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_meal_image" placeholder="End Time"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_mal_price" placeholder="Actual Start Time"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_index" placeholder="Actual End Time"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_meal_name" placeholder="Category"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_meal_description" placeholder="Service Name"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_meal_image" placeholder="Customer Name"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_mal_price" placeholder="Artist Name"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_meal_description" placeholder="Address"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_meal_image" placeholder="Cost($)"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_mal_price" placeholder="Rating"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END DATATABLE 2 -->
+
+</div>
+    </span>

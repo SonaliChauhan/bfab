@@ -1,0 +1,63 @@
+<h3>Reports
+    <small>Download all kind of user reports</small>
+</h3>
+
+<div class="col-sm-6">
+    <div class="panel panel-default" ng-controller="ReportsController">
+        <div class="panel-heading">
+            Reports
+        </div>
+        <div class="panel-body" style="overflow: inherit;">
+            <div class="btn-group" style="margin-bottom: 10px;width: 100%" ng-controller="ButtonsCtrl">
+                <label ng-model="add.report_type" btn-radio="'1'" style="width: 25%;"
+                       class="btn btn-primary">Customer</label>
+                <label ng-model="add.report_type" btn-radio="'2'" style="width: 25%;"
+                       class="btn btn-primary">Artist</label>
+                <label ng-model="add.report_type" btn-radio="'3'" style="width: 25%;"
+                       class="btn btn-primary">Service</label>
+                <label ng-model="add.report_type" btn-radio="'4'" style="width: 25%;"
+                       class="btn btn-primary">Session</label>
+            </div>
+            <div class="date-range-div">
+                <div class="col-lg-6 padding_left">
+                    <div class="form-group" ng-controller="DatepickerReportsCtrl">
+                        <p class="input-group">
+                            <input placeholder="From Date" type="text" datepicker-popup="{{format}}"
+                                   ng-model="add.from_date" is-open="opened"
+                                   style="background-color: #fff;cursor: pointer;"
+                                   min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions"
+                                   date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"
+                                   class="form-control" readonly/>
+                        <span class="input-group-btn">
+                           <button type="button" ng-click="open($event)" class="btn btn-default">
+                               <em class="fa fa-calendar"></em>
+                           </button>
+                        </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-6 padding_right">
+                    <div class="form-group" ng-controller="DatepickerReportsCtrl">
+                        <p class="input-group">
+                            <input placeholder="To Date" type="text" datepicker-popup="{{format}}"
+                                   ng-model="add.to_date" is-open="opened"
+                                   style="background-color: #fff;cursor: pointer;" ng-change="checkDate()"
+                                   min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions"
+                                   date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"
+                                   class="form-control" readonly/>
+                        <span class="input-group-btn">
+                           <button type="button" ng-click="open($event)" class="btn btn-default">
+                               <em class="fa fa-calendar"></em>
+                           </button>
+                        </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="panel-footer text-right">
+            <button type="button" class="btn btn-primary" ng-click="getReport()">SUBMIT</button>
+        </div>
+    </div>
+</div>

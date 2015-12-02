@@ -1,0 +1,125 @@
+<h3>Customer Info
+    <small>Get customer information</small>
+</h3>
+<div ng-controller="CustomerInfoController" class="container-fluid">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default customer_details_div" ng-class="{'whirl line grow' : loading_image }">
+                <img class="image_customer left" src="{{customer.image || 'app/img/default.jpg'}}">
+
+                <div class="customer_details left">
+                    <h3 class="mt0">{{customer.name || 'Customer'}}</h3>
+                    <ul class="list-unstyled">
+                        <li class="mb-sm">
+                            <em class="fa fa-envelope fa-fw"></em>@{{customer.email || 'Customer Email'}}
+                        </li>
+                        <li class="mb-sm">
+                            <em class="fa fa-phone fa-fw"></em>{{customer.phone || '(999) 999-9999'}}
+                        </li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- START DATATABLE 2 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="table-responsive">
+                    <table id="datatable2" class="table table-striped table-hover"
+                           ng-class="{'whirl standard' : loading }">
+                        <thead>
+                        <tr>
+                            <th style="width:5px">#</th>
+                            <th style="width:10px">Service Name</th>
+                            <th style="width:10px">Service Date</th>
+                            <th style="width:10px">Service Location</th>
+                            <th style="width:10px">Start Time</th>
+                            <th style="width:10px">End Time</th>
+                            <th style="width:10px">Payable Cost($)</th>
+                            <th style="width:10px">Artist Name</th>
+                            <th style="width:10px">Status</th>
+                            <th style="width:10px">Rating</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="data in list">
+
+                            <td>{{$index + 1}}</td>
+                            <td>{{data.service_name}}</td>
+                            <td>{{data.service_date}}</td>
+                            <td>{{data.address}}</td>
+                            <td>{{data.start_time}}</td>
+                            <td>{{data.end_time}}</td>
+                            <td>{{data.cost}}</td>
+                            <td>{{data.artist_name}}</td>
+                            <td ng-switch="data.status">
+                                <span ng-switch-when="0" class="label label-info">Booked</span>
+                                <span ng-switch-when="1" class="label label-success">Confirmed</span>
+                                <span ng-switch-when="2" class="label label-primary">Out</span>
+                                <span ng-switch-when="3" class="label label-purple">Reached</span>
+                                <span ng-switch-when="4" class="label label-pink">Started</span>
+                                <span ng-switch-when="5" class="label label-danger">Ended</span>
+                                <span ng-switch-when="6" class="label label-warning">Rejected</span>
+                                <span ng-switch-when="7" class="label label-warning">Canceled</span>
+                            </td>
+                            <td>{{data.rating}}</td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th>
+                                <input type="text" name="filter_index" placeholder="#"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_meal_name" placeholder="Service Name"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_meal_description" placeholder="Service Date"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_meal_description" placeholder="Service Location"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_meal_description" placeholder="Start Time"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_meal_description" placeholder="End Time"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_meal_description" placeholder="Payable Cost($)"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_meal_description" placeholder="Artist Name"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_meal_description" placeholder="Status"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_meal_description" placeholder="Rating"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END DATATABLE 2 -->
+
+</div>

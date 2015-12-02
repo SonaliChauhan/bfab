@@ -1,0 +1,161 @@
+<h3>Dashboard
+    <small>Dashboard information</small>
+</h3>
+<span ng-controller="DashboardController">
+    <br>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Current
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <!-- START widget-->
+                <div class="panel widget bg-primary-light">
+                    <div class="row row-table">
+                        <div class="col-xs-4 text-center bg-primary-light pv-lg">
+                            <em class="icon-wallet fa-3x"></em>
+                        </div>
+                        <div class="col-xs-8 pv-lg revenue_bg">
+                            <div class="h2 mt0">{{current.totalrevenue || 0}}</div>
+                            <div class="text-uppercase">Total Revenue</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12">
+
+                <!-- START widget-->
+                <div class="panel widget bg-purple-light">
+                    <div class="row row-table">
+                        <div class="col-xs-4 text-center bg-purple-light pv-lg">
+                            <em class="icon-handbag fa-3x"></em>
+                        </div>
+                        <div class="col-xs-8 pv-lg service_bg">
+                            <div class="h2 mt0">{{current.servicescompleted || 0}}
+                            </div>
+                            <div class="text-uppercase">Services Completed</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <!-- START widget-->
+                <div class="panel widget bg-green-light">
+                    <div class="row row-table">
+                        <div class="col-xs-4 text-center bg-green-light pv-lg">
+                            <em class="icon-pin fa-3x"></em>
+                        </div>
+                        <div class="col-xs-8 pv-lg scheduled_bg">
+                            <div class="h2 mt0">{{current.servicesscheduled || 0}}</div>
+                            <div class="text-uppercase">Services Scheduled</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-12 col-md-12 col-sm-12 padding_left padding_right">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Gross
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <!-- START widget-->
+                    <div class="panel widget bg-primary-light">
+                        <div class="row row-table">
+                            <div class="col-xs-4 text-center bg-primary-light pv-lg">
+                                <em class="icon-wallet fa-3x"></em>
+                            </div>
+                            <div class="col-xs-8 pv-lg revenue_bg">
+                                <div class="h2 mt0">{{gross.totalrevenue || 0}}</div>
+                                <div class="text-uppercase">Total Revenue</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <!-- START widget-->
+                    <div class="panel widget bg-purple-light">
+                        <div class="row row-table">
+                            <div class="col-xs-4 text-center bg-purple-light pv-lg">
+                                <em class="icon-handbag fa-3x"></em>
+                            </div>
+                            <div class="col-xs-8 pv-lg service_bg">
+                                <div class="h2 mt0">{{gross.servicescompleted || 0}}
+                                </div>
+                                <div class="text-uppercase">Services Completed</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <!-- START widget-->
+                    <div class="panel widget bg-green-light">
+                        <div class="row row-table">
+                            <div class="col-xs-4 text-center bg-green-light pv-lg">
+                                <em class="icon-pin fa-3x"></em>
+                            </div>
+                            <div class="col-xs-8 pv-lg scheduled_bg">
+                                <div class="h2 mt0">{{gross.servicesscheduled || 0}}</div>
+                                <div class="text-uppercase">Services Scheduled</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-12 col-md-12 col-sm-12 padding_left padding_right">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <!-- START row-->
+            <div class="row">
+                <div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <!-- START panel-->
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <em class="fa fa-users fa-5x"></em>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="text-lg">{{registered.users || 0}}</div>
+                                        <p class="m0">Total User Registered</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END panel-->
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <!-- START panel-->
+                        <div class="panel panel-green">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <em class="fa fa-users fa-5x"></em>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="text-lg">{{registered.sp || 0}}</div>
+                                        <p class="m0">Total Artist Registered</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <!-- END panel-->
+
+
+        </div>
+    </div>
+</div>

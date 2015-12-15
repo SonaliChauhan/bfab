@@ -10,6 +10,17 @@ App.controller('OngoingSessionController', function ($scope, $http, $location, $
             var dataArray = [];
             data = JSON.parse(data);
             //console.log(data);
+            if (data.error) {
+                ngDialog.open({
+                    template: '<p>Something went wrong !</p>',
+                    className: 'ngdialog-theme-default',
+                    plain: true,
+                    showClose: false,
+                    closeByDocument: false,
+                    closeByEscape: false
+                });
+                return false;
+            }
             data.forEach(function (column) {
 
                 var d = {
@@ -144,6 +155,17 @@ App.controller('UpcomingSessionController', function ($scope, $http, $location, 
             data = JSON.parse(data);
             data = data.bookings;
             //console.log(data);
+            if (data.error) {
+                ngDialog.open({
+                    template: '<p>Something went wrong !</p>',
+                    className: 'ngdialog-theme-default',
+                    plain: true,
+                    showClose: false,
+                    closeByDocument: false,
+                    closeByEscape: false
+                });
+                return false;
+            }
             data.forEach(function (column) {
 
                 var d = {
@@ -307,6 +329,17 @@ App.controller('PastSessionController', function ($scope, $http, $location, $coo
             var dataArray = [];
             data = JSON.parse(data);
             //console.log(data);
+            if (data.error) {
+                ngDialog.open({
+                    template: '<p>Something went wrong !</p>',
+                    className: 'ngdialog-theme-default',
+                    plain: true,
+                    showClose: false,
+                    closeByDocument: false,
+                    closeByEscape: false
+                });
+                return false;
+            }
             data.forEach(function (column) {
 
                 var d = {
@@ -448,6 +481,17 @@ App.controller('CancelledSessionController', function ($scope, $http, $location,
             var dataArray = [];
             data = JSON.parse(data);
             //console.log(data);
+            if (data.error) {
+                ngDialog.open({
+                    template: '<p>Something went wrong !</p>',
+                    className: 'ngdialog-theme-default',
+                    plain: true,
+                    showClose: false,
+                    closeByDocument: false,
+                    closeByEscape: false
+                });
+                return false;
+            }
             data.forEach(function (column) {
 
                 var d = {

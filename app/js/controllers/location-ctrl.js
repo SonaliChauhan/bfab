@@ -18,14 +18,16 @@ App.controller('LocationController', function ($scope, $http, $route, $cookieSto
                 return false;
             }
             data.forEach(function (column) {
-
+//console.log(column.id);
                 var d = {
                     pin_code: "",
-                    city: "",
+                    id:"",
+                    city_name: ""
                 };
 
                 d.pin_code = column.pincode;
-                d.city = column.name;
+                d.id = column.id;
+                d.city_name = column.city_name;
                 dataArray.push(d);
             });
 
@@ -95,7 +97,7 @@ App.controller('LocationController', function ($scope, $http, $route, $cookieSto
             return false;
 
         }
-        else if ($scope.location.city == undefined) {
+        else if ($scope.location.city_name == undefined) {
             ngDialog.open({
                 template: '<p class="del-dialog">Please enter city !!</p>',
                 plain: true,
@@ -109,7 +111,7 @@ App.controller('LocationController', function ($scope, $http, $route, $cookieSto
             {
                 access_token: $cookieStore.get('obj').accesstoken,
                 pincode:$scope.location.pin_code,
-                name: $scope.location.city,
+                name: $scope.location.city_name
             },
             function (data) {
                 console.log(data);
@@ -130,8 +132,8 @@ App.controller('LocationController', function ($scope, $http, $route, $cookieSto
     };
 
     // Delete Dialog
-    $scope.deleteLocation = function (pin) {
-        $scope.dele_val = pin;
+    $scope.deleteLocation = function (id) {
+        $scope.dele_val = id;
         $scope.value = true;
         $scope.addTeam = {};
         ngDialog.open({
@@ -142,13 +144,14 @@ App.controller('LocationController', function ($scope, $http, $route, $cookieSto
     };
 
     $scope.delete = function () {
-
+   // alert("ddd");
         $.post(MY_CONSTANT.url + '/delete_city',
             {
                 access_token: $cookieStore.get('obj').accesstoken,
-                pincode: $scope.dele_val
+                id: $scope.dele_val
             },
             function (data) {
+               console.log(data);
                 $window.location.reload();
 
             });

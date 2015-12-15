@@ -10,6 +10,17 @@ App.controller('FeedbackUserController', function ($scope, $http, $location, $co
             var dataArray = [];
             data = JSON.parse(data);
             //console.log(data);
+            if (data.error) {
+                ngDialog.open({
+                    template: '<p>Something went wrong !</p>',
+                    className: 'ngdialog-theme-default',
+                    plain: true,
+                    showClose: false,
+                    closeByDocument: false,
+                    closeByEscape: false
+                });
+                return false;
+            }
             data = data.user_feedback;
             data.forEach(function (column) {
 
@@ -128,6 +139,17 @@ App.controller('FeedbackSPController', function ($scope, $http, $location, $cook
             var dataArray = [];
             data = JSON.parse(data);
             //console.log(data);
+            if (data.error) {
+                ngDialog.open({
+                    template: '<p>Something went wrong !</p>',
+                    className: 'ngdialog-theme-default',
+                    plain: true,
+                    showClose: false,
+                    closeByDocument: false,
+                    closeByEscape: false
+                });
+                return false;
+            }
             data = data.tech_feedback;
             data.forEach(function (column) {
 

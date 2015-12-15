@@ -96,11 +96,7 @@
     "sref": "app.payment",
     "icon": "icon-credit-card"
   },
-  {
-    "text":"Email",
-    "sref":"app.Email",
-    "icon":"fa fa-comments"
-  },
+
   {
     "text":"Location",
     "sref":"app.location",

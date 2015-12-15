@@ -3,7 +3,7 @@ App.controller('CustomersController', function ($scope, $http, $location, $cooki
     $scope.loading = true;
 
     var getCustomerList = function () {
-        $.post(MY_CONSTANT.url + '/customer_list', {
+        $.get(MY_CONSTANT.url + '/customer_list', {
             access_token: $cookieStore.get('obj').accesstoken
 
         }, function (data) {

@@ -8,8 +8,17 @@
             Add Promo Codes
         </div>
         <div class="panel-body set-calender-scroll">
+            <!--Column 0-Add Promo-->
+
+            <div class="col-lg-3 padding_left">
+                <div class="form-group">
+                    <label class="label-promo">PROMO CODE</label>
+                    <input type="text" ng-model="promo.promo_code"
+                           class="form-control" required="required"/>
+                </div>
+            </div>
             <!--Column 1-Add Promo-->
-            <div class="col-lg-4 padding_left">
+            <div class="col-lg-3 padding_left">
                 <div class="form-group" ng-controller="DatepickerDemoCtrl">
                     <label class="label-promo">START DATE</label>
 
@@ -17,7 +26,7 @@
                         <input type="text" datepicker-popup="{{format}}"
                                ng-model="promo.start_date" is-open="opened"
                                style="background-color: #fff;cursor: pointer;"
-                               min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions"
+                               min-date="minDate" max-date="" datepicker-options="dateOptions"
                                date-disabled="disabled(date, mode)" close-text="Close"
                                class="form-control" readonly/>
                         <span class="input-group-btn">
@@ -29,7 +38,7 @@
                 </div>
             </div>
             <!--Column 2-Add Promo-->
-            <div class="col-lg-4 padding_left">
+            <div class="col-lg-3 padding_left">
                 <div class="form-group" ng-controller="DatepickerDemoCtrl">
                     <label class="label-promo">END DATE</label>
 
@@ -37,7 +46,7 @@
                         <input type="text" datepicker-popup="{{format}}"
                                ng-model="promo.end_date" is-open="opened"
                                style="background-color: #fff;cursor: pointer;" ng-change="checkDate()"
-                               min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions"
+                               min-date="minDate" max-date="" datepicker-options="dateOptions"
                                date-disabled="disabled(date, mode)" close-text="Close"
                                class="form-control" readonly/>
                         <span class="input-group-btn">
@@ -49,7 +58,7 @@
                 </div>
             </div>
             <!--Column 3-Add Promo-->
-            <div class="col-lg-4 padding_left">
+            <div class="col-lg-3 padding_left">
                 <div class="form-group">
                     <label class="label-promo">CREDITS ($)</label>
                     <input type="text" ng-model="promo.credits" data-parsley-type="number"

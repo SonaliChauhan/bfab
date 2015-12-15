@@ -35,7 +35,7 @@ App.controller('PaymentController', function ($scope, $http, $location, $cookies
 
             d.artist_id = column.artist_id;
             d.artist_name = column.artist_name;
-            d.email = column.email;
+            d.artist_email = column.email;
             d.account_holder_name=column.account_holder_name;
             d.bank_name=column.bank_name;
             d.account_no=column.account_no;
@@ -128,7 +128,6 @@ App.controller('PaymentInfoController', function ($scope, $http, $location, $coo
                 status: "",
                 rating: "",
                 cost: "",
-                tip:"",
                 category: "",
                 service_name: "",
                 date_created: ""
@@ -151,7 +150,6 @@ App.controller('PaymentInfoController', function ($scope, $http, $location, $coo
             d.service_date = date;
             d.rating = column.rating;
             d.cost = column.cost;
-            d.tip = column.tip;
             d.category = category;
             d.service_name = service_list;
             d.date_created = column.transaction_created_at.toString().split("T")[0];

@@ -18,7 +18,7 @@
             <div class="col-lg-2 padding_left">
                 <div class="form-group">
                     <label class="label-promo">CITY </label>
-                    <input type="text" ng-model="location.city" data-parsley-type="number"
+                    <input type="text" ng-model="location.city_name" data-parsley-type="number"
                            class="form-control" required="required"/>
                 </div>
             </div>
@@ -43,6 +43,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th hidden>id</th>
                                 <th>Pin Code</th>
                                 <th>City</th>
                                 <th>Action</th>
@@ -51,10 +52,11 @@
                         <tbody>
                             <tr ng-repeat="data in list">
                                 <td>{{$index + 1}}</td>
+                                <td hidden>{{data.id}}</td>
                                 <td>{{data.pin_code}}</td>
-                                <td>{{data.city}}</td>
+                                <td>{{data.city_name}}</td>
                                 <td>
-                                    <button ng-click="deleteLocation(data.pin_code)" title="Delete"
+                                    <button ng-click="deleteLocation(data.id)" title="Delete"
                                             class="btn btn-sm btn-danger pull-ext">
                                         <em class="fa fa-trash-o"></em>
                                     </button>

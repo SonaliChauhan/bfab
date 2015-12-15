@@ -25,7 +25,7 @@
                             <input placeholder="From Date" type="text" datepicker-popup="{{format}}"
                                    ng-model="add.from_date" is-open="opened"
                                    style="background-color: #fff;cursor: pointer;"
-                                   min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions"
+                                   min-date="minDate" max-date="maxDate" datepicker-options="dateOptions"
                                    date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"
                                    class="form-control" readonly/>
                         <span class="input-group-btn">
@@ -42,7 +42,7 @@
                             <input placeholder="To Date" type="text" datepicker-popup="{{format}}"
                                    ng-model="add.to_date" is-open="opened"
                                    style="background-color: #fff;cursor: pointer;" ng-change="checkDate()"
-                                   min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions"
+                                   min-date="minDate" max-date="maxDate" datepicker-options="dateOptions"
                                    date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"
                                    class="form-control" readonly/>
                         <span class="input-group-btn">

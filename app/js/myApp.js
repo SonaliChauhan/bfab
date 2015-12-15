@@ -131,12 +131,12 @@ myApp.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'Rout
                 templateUrl: helper.basepath('new_requested_artist.html'),
                 resolve: helper.resolveFor('datatables', 'datatables-pugins')
             })
-            .state('app.add-session', {
-                url: '/add-session',
-                title: 'Add Session',
-                templateUrl: helper.basepath('add_session.html'),
-                resolve: helper.resolveFor('datatables', 'datatables-pugins')
-            })
+            //.state('app.add-session', {
+            //    url: '/add-session',
+            //    title: 'Add Session',
+            //    templateUrl: helper.basepath('add_session.html'),
+            //    resolve: helper.resolveFor('datatables', 'datatables-pugins')
+            //})
             .state('app.ongoing', {
                 url: '/ongoing',
                 title: 'Ongoing Session',
@@ -167,12 +167,12 @@ myApp.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'Rout
                 templateUrl: helper.basepath('service.html'),
                 resolve: helper.resolveFor('datatables', 'datatables-pugins', 'ngWig', 'parsley')
             })
-            .state('app.driverdatabase', {
-                url: '/driverdatabase',
-                title: 'Driver Database',
-                templateUrl: helper.basepath('driver_database.html'),
-                resolve: helper.resolveFor('datatables', 'datatables-pugins')
-            })
+            //.state('app.driverdatabase', {
+            //    url: '/driverdatabase',
+            //    title: 'Driver Database',
+            //    templateUrl: helper.basepath('driver_database.html'),
+            //    resolve: helper.resolveFor('datatables', 'datatables-pugins')
+            //})
             .state('app.payment', {
                 url: '/payment',
                 title: 'Payment',
@@ -320,10 +320,13 @@ myApp.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'Rout
             };
 
             // Disable weekend selection
-            $scope.disabled = function (date, mode) {
-                return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-            };
+            //$scope.disabled = function (date, mode) {
+            //    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+            //};
 
+            $scope.toggleMin = function(){
+              $scope.minDate = $scope.minDate ? null : new Date();
+            };
             $scope.open = function ($event) {
                 $event.preventDefault();
                 $event.stopPropagation();

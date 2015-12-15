@@ -1,155 +1,197 @@
 App.controller('CustomersController', function ($scope, $http, $location, $cookies, $cookieStore, MY_CONSTANT, $timeout, $window, ngDialog) {
     'use strict';
     $scope.loading = true;
+    $scope.pageLoaded = false;
+    $scope.searchPaging = false;
+    $scope.total_pages;
+    $scope.last_page;
+    $scope.page_no = 1;
 
-    var getCustomerList = function () {
-        $.post(MY_CONSTANT.url + '/customer_list', {
-            access_token: $cookieStore.get('obj').accesstoken
+    $scope.options = [10,25,50,100];
+    $scope.page_length = $scope.options[0];
 
+    var start, end, searchArray;
+    var completeList = [];
+
+    var putData = function(column, dataArray, index) {
+        var d = {
+            cust_id: "",
+            name: "",
+            phone_no: "",
+            email: "",
+            gender: "",
+            registration_datetime: "",
+            is_block: ""
+        };
+
+        d.cust_id = column.user_id;
+        d.name = column.first_name + " " + column.last_name;
+        d.phone_no = column.mobile;
+        d.email = column.email;
+        d.gender = column.gender?column.gender:"not defined";
+        d.reg_date = column.registration_datetime;
+        d.is_block = column.is_block;
+        dataArray.push(d);
+
+    };
+    var createPageArray = function(start, end) {
+        var page_arr = [];
+        start = start<2?2:start;
+        end = end>$scope.total_pages-1?$scope.total_pages-1:end;
+        for(var i=start;i<=end;i++) {
+            page_arr.push(i);
+        }
+        $scope.pages = page_arr;
+    };
+    $scope.getCustomerList = function (page_number) {
+        $scope.last_page = $scope.page_no;
+        $scope.page_no = page_number;
+        var index = (page_number - 1) * $scope.page_length;
+        $.post(MY_CONSTANT.url + '/customer_list_paging', {
+            access_token: $cookieStore.get('obj').accesstoken,
+            page_no: page_number,
+            length: $scope.page_length
         }, function (data) {
             var dataArray = [];
             data = JSON.parse(data);
-            //console.log(data);
-            data.forEach(function (column) {
-
-                var d = {
-                    cust_id: "",
-                    name: "",
-                    phone_no: "",
-                    email: "",
-                    gender: "",
-                    reg_date: "",
-                    is_block: ""
-                };
-
-                d.cust_id = column.user_id;
-                d.name = column.first_name + " " + column.last_name;
-                d.phone_no = column.mobile;
-                d.email = column.email;
-                d.gender = column.gender;
-                d.reg_date = column.registration_datetime;
-                d.is_block = column.is_block;
-                dataArray.push(d);
+            if (data.error) {
+                ngDialog.open({
+                    template: '<p>Something went wrong !</p>',
+                    className: 'ngdialog-theme-default',
+                    plain: true,
+                    showClose: false,
+                    closeByDocument: false,
+                    closeByEscape: false
+                });
+                return false;
+            }
+            $scope.total_pages = Math.ceil(data.count / $scope.page_length);
+            data.data.forEach(function (column) {
+                putData(column, dataArray, ++index);
 
             });
-
             $scope.$apply(function () {
                 $scope.list = dataArray;
-
-
-                // Define global instance we'll use to destroy later
-                var dtInstance;
                 $scope.loading = false;
-                $timeout(function () {
-                    if (!$.fn.dataTable)
-                        return;
-                    dtInstance = $('#datatable2').dataTable({
-                        'paging': true, // Table pagination
-                        'ordering': true, // Column ordering
-                        'info': true, // Bottom left status text
-                        'bDestroy': true,
-                        // Text translation options
-                        // Note the required keywords between underscores (e.g _MENU_)
-                        oLanguage: {
-                            sSearch: 'Search all columns:',
-                            sLengthMenu: '_MENU_ records per page',
-                            info: 'Showing page _PAGE_ of _PAGES_',
-                            zeroRecords: 'Nothing found - sorry',
-                            infoEmpty: 'No records available',
-                            infoFiltered: '(filtered from _MAX_ total records)'
+                if ($scope.total_pages > 7) {
+                    if ($scope.page_no == 1) {
+                        start = 2;
+                        end = $scope.total_pages > 6 ? 5 : $scope.total_pages;
+                    }
+                    else {
+                        if ($scope.page_no != $scope.last_page) {
+                            if ($scope.last_page < $scope.page_no) {
+                                start = $scope.page_no - 1;
+                                end = $scope.page_no + 2;
+                            }
+                            else {
+                                start = $scope.page_no - 2;
+                                end = $scope.page_no + 1;
+                            }
                         }
-                    });
-                    var inputSearchClass = 'datatable_input_col_search';
-                    var columnInputs = $('tfoot .' + inputSearchClass);
-
-                    // On input keyup trigger filtering
-                    columnInputs
-                        .keyup(function () {
-                            dtInstance.fnFilter(this.value, columnInputs.index(this));
-                        });
-                });
-
-                // When scope is destroyed we unload all DT instances
-                // Also ColVis requires special attention since it attaches
-                // elements to body and will not be removed after unload DT
-                $scope.$on('$destroy', function () {
-                    dtInstance.fnDestroy();
-                    $('[class*=ColVis]').remove();
-                });
+                    }
+                }
+                else {
+                    start = 2;
+                    end = $scope.total_pages;
+                }
+                createPageArray(start, end);
+                $scope.searchPaging = false;
+                $scope.pageLoaded = true;
             });
-
         });
     };
+$scope.getCustomerList($scope.page_no);
 
-    getCustomerList();
+// ****Search in customer list***//
+var getCustomers = function() {
+    $.post(MY_CONSTANT.url + '/customer_list', {
+        access_token: $cookieStore.get('obj').accesstoken
+    }, function (data) {
+        var dataArray = [];
+        data = JSON.parse(data);
+        completeList = data;
+    });
+};
+getCustomers();
 
-    // Delete Dialog
-    $scope.deleteCustomer = function (userid) {
-        $scope.dele_val = userid;
-        $scope.value = true;
-        $scope.addTeam = {};
-        ngDialog.open({
-            template: 'app/views/delete-dialog.html',
-            className: 'ngdialog-theme-default',
-            scope: $scope
-        });
-    };
-
-    $scope.delete = function () {
-
-        $.post(MY_CONSTANT.url + '/delete_user',
-            {
-                access_token: $cookieStore.get('obj').accesstoken,
-                user_id: $scope.dele_val
-            },
-            function (data) {
-                $window.location.reload();
-
-            });
-
-    };
-
-    // Change Status Dialog
-    $scope.changeStatus = function (status, userid) {
-        $scope.user_val = userid;
-        if (status == 1) {
-            $scope.stat = "block";
-            $scope.stat_btn = "Block";
-            $scope.status = 1;
+$scope.searchResults = function(start, end, page) {
+    if(searchArray.length!=completeList.length) {
+        var filteredArray = [];
+        $scope.pageLoaded = false;
+        $scope.searchPaging = true;
+        $scope.page_no = page;
+        end = end>searchArray.length?searchArray.length:end;
+        $scope.total_pages = Math.ceil(searchArray.length/$scope.page_length);
+        createPageArray(0, $scope.total_pages);
+        for(var i=start;i<end;i++) {
+            filteredArray.push(searchArray[i]);
         }
-        else {
-            $scope.stat = "unblock";
-            $scope.stat_btn = "Unblock";
-            $scope.status = 0;
-        }
-        $scope.value = true;
-        $scope.addTeam = {};
-        ngDialog.open({
-            template: 'app/views/status-dialog.html',
-            className: 'ngdialog-theme-default',
-            scope: $scope
+        $scope.list = filteredArray;
+    }
+    else {
+        $scope.searchPaging = false;
+        $scope.pageLoaded = true;
+        $scope.getCustomerList(1);
+    }
+};
+// Search for data
+$scope.$watch('search', function(value) {
+    $scope.page_no = 1;
+    searchArray = [];
+    var index = 0;
+    if(!completeList.length)
+        getCustomers();
+    else {
+        completeList.forEach(function(column) {
+            var found = column.first_name.toLowerCase().search(value)>-1 || column.last_name.toLowerCase().search(value)>-1;
+            found = found || column.registration_datetime.toLowerCase().search(value)>-1 || column.email.toLowerCase().search(value)>-1;
+            found = found || column.mobile.search(value)>-1;
+            if(found)
+                putData(column, searchArray, ++index);
         });
-    };
-
-    $scope.change = function () {
-
-        $.post(MY_CONSTANT.url + '/block_unblock_user',
-            {
-
-
-                access_token: $cookieStore.get('obj').accesstoken,
-                user_id: $scope.user_val,
-                new_block_status: $scope.status
-            },
-            function (data) {
-                console.log(data);
-                $window.location.reload();
-
-            });
-    };
-
-
+        $scope.searchResults(0, $scope.page_length, $scope.page_no);
+    }
 });
+//****************************//
+
+// Change Status Dialog
+$scope.changeStatus = function (status, userid) {
+    $scope.user_val = userid;
+    if (status == 1) {
+        $scope.stat = "block";
+        $scope.stat_btn = "Block";
+        $scope.status = 1;
+    }
+    else {
+        $scope.stat = "unblock";
+        $scope.stat_btn = "Unblock";
+        $scope.status = 0;
+    }
+    $scope.value = true;
+    $scope.addTeam = {};
+    ngDialog.open({
+        template: 'app/views/status-dialog.html',
+        className: 'ngdialog-theme-default',
+        scope: $scope
+    });
+};
+
+$scope.change = function () {
+
+    $.post(MY_CONSTANT.url + '/block_unblock_user',
+        {
+            access_token: $cookieStore.get('obj').accesstoken,
+            user_id: $scope.user_val,
+            new_block_status: $scope.status
+        },
+        function (data) {
+            $window.location.reload();
+
+        });
+};
+});
+
 
 App.controller('CustomerInfoController', function ($scope, $http, $location, $cookies, $cookieStore, MY_CONSTANT, $timeout, $stateParams) {
     'use strict';
@@ -165,6 +207,17 @@ App.controller('CustomerInfoController', function ($scope, $http, $location, $co
         var dataArray = [];
         data = JSON.parse(data);
         console.log(data);
+        if (data.error) {
+            ngDialog.open({
+                template: '<p>Something went wrong !</p>',
+                className: 'ngdialog-theme-default',
+                plain: true,
+                showClose: false,
+                closeByDocument: false,
+                closeByEscape: false
+            });
+            return false;
+        }
 
         var customer_data = data.customer_detail[0];
 
@@ -179,7 +232,7 @@ App.controller('CustomerInfoController', function ($scope, $http, $location, $co
 
             var d = {
                 id: "",
-                booking_id: "",
+
                 service_id: "",
                 address: "",
                 artist_name: "",
@@ -189,7 +242,6 @@ App.controller('CustomerInfoController', function ($scope, $http, $location, $co
                 status: "",
                 rating: "",
                 cost: "",
-                category: "",
                 service_name: ""
             };
 
@@ -206,17 +258,15 @@ App.controller('CustomerInfoController', function ($scope, $http, $location, $co
                 endhours12 = startTimeHours % 12;
             var endDisplayTime = endhours12 + ":" + endTimeMinutes + " " + endSuffix;
             d.id = column.id;
-            d.booking_id = column.booking_id;
             d.service_id = column.service_id;
             d.status = column.status;
             d.artist_name = column.artist_name;
             d.start_time = startDisplayTime;
             d.end_time = endDisplayTime;
-            d.address = column.address;
-            d.service_date = date;
+            d.service_location = column.address;
+            d.service_date = column.service_date;
             d.rating = column.rating;
             d.cost = column.cost;
-            d.category = column.category;
             d.service_name = column.service_name;
             dataArray.push(d);
         });
@@ -224,8 +274,6 @@ App.controller('CustomerInfoController', function ($scope, $http, $location, $co
         $scope.$apply(function () {
             $scope.list = dataArray;
 
-
-            // Define global instance we'll use to destroy later
             var dtInstance;
             $scope.loading = false;
             $timeout(function () {
@@ -234,6 +282,9 @@ App.controller('CustomerInfoController', function ($scope, $http, $location, $co
                     'paging': true,  // Table pagination
                     'ordering': true,  // Column ordering
                     'info': true,  // Bottom left status text
+                    'columnDefs':[{'targets':[6,13,15], visible: false}],
+                    'iDisplayLength': 5,
+                    "aLengthMenu": [[5, 10, 15, 20], [5, 10, 15, 20]],
                     // Text translation options
                     // Note the required keywords between underscores (e.g _MENU_)
                     oLanguage: {
@@ -245,11 +296,17 @@ App.controller('CustomerInfoController', function ($scope, $http, $location, $co
                         infoFiltered: '(filtered from _MAX_ total records)'
                     }
                 });
+                var colvis = new $.fn.dataTable.ColVis( dtInstance, {
+                    buttonText: 'Select columns',
+                    exclude: [0,1,7,8,9]
+                } );
+
+                $( colvis.button() ).prependTo('#datatable2_filter');
                 var inputSearchClass = 'datatable_input_col_search';
                 var columnInputs = $('tfoot .' + inputSearchClass);
 
                 // On input keyup trigger filtering
-                columnInputs
+                columnInputsjjg
                     .keyup(function () {
                         dtInstance.fnFilter(this.value, columnInputs.index(this));
                     });
@@ -265,5 +322,4 @@ App.controller('CustomerInfoController', function ($scope, $http, $location, $co
         });
 
     });
-
 });

@@ -10,6 +10,17 @@ App.controller('ServiceController', function ($scope, $http, $location, $cookies
             var dataArray = [];
             data = JSON.parse(data);
             console.log(data);
+            if (data.error) {
+                ngDialog.open({
+                    template: '<p>Something went wrong !</p>',
+                    className: 'ngdialog-theme-default',
+                    plain: true,
+                    showClose: false,
+                    closeByDocument: false,
+                    closeByEscape: false
+                });
+                return false;
+            }
             data.forEach(function (column) {
 
                 var d = {

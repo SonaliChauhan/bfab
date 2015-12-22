@@ -1,0 +1,297 @@
+<div ng-controller="NotificationController" class="container-notifications-page">
+    <h3 class="page-header mt0">Customer Notifications</h3>
+
+    <div ng-show="successMsg" class="alert alert-success text-center">{{successMsg}}</div>
+    <div ng-show="errorMsg" class="alert alert-danger text-center">{{errorMsg}}</div>
+
+    <div class="col-lg-12" id="content1">
+        <div class="sk-spinner sk-spinner-cube-grid" ng-show="showloader==1">
+            <div class="sk-cube"></div>
+            <div class="sk-cube"></div>
+            <div class="sk-cube"></div>
+            <div class="sk-cube"></div>
+            <div class="sk-cube"></div>
+            <div class="sk-cube"></div>
+            <div class="sk-cube"></div>
+            <div class="sk-cube"></div>
+            <div class="sk-cube"></div>
+        </div>
+        <div ng-if="workflow==0">
+            <h5>Pick-up Notifications</h5>
+        </div>
+
+        <div class="table-responsive" ng-if="workflow==0">
+            <table class="table" style="background-color: #ececec;">
+                <thead>
+                <tr>
+                    <th style="width:50%">Triggers</th>
+                    <th style="width:10%">SMS</th>
+                    <th style="width:10%">Email</th>
+                    <th style="width:10%">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="data in filterLayout(allkeys, 0)">
+                    <td>{{data.template_key}}</td>
+                    <td>
+                        <label class="switch switch-sm" ng-if="data.sms_enabled">
+                            <input type="checkbox" ng-click="actionsForSMSAndEmail(0, data.email_enabled,data.template_key, data.layout_type)" checked/>
+                            <span></span>
+                        </label>
+                        <label class="switch switch-sm" ng-if="!data.sms_enabled">
+                            <input type="checkbox" ng-click="actionsForSMSAndEmail(1, data.email_enabled, data.template_key, data.layout_type)"/>
+                            <span></span>
+                        </label>
+                    </td>
+                    <td>
+                        <label class="switch switch-sm" ng-if="data.email_enabled">
+                            <input type="checkbox" ng-click="actionsForSMSAndEmail(data.sms_enabled, 0, data.template_key, data.layout_type)"
+                                   checked/>
+                            <span></span>
+                        </label>
+                        <label class="switch switch-sm" ng-if="!data.email_enabled">
+                            <input type="checkbox" ng-click="actionsForSMSAndEmail(data.sms_enabled, 1 ,data.template_key, data.layout_type)" />
+                            <span></span>
+                        </label>
+                    </td>
+                    <td><em class="fa fa-pencil custom-pencil" ng-click="addNewNotificationDialog(data.template_key,data.email_text,data.sms_text,data.email_subject,data.sms_enabled,data.email_enabled, data.layout_type)"></em></td>
+                </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+        <div ng-if="workflow==0">
+            <h5>Delivery Notifications</h5>
+        </div>
+        <div class="table-responsive" ng-if="workflow==0">
+            <table class="table" style="background-color: #ececec;">
+                <thead>
+                <tr>
+                    <th style="width:50%">Triggers</th>
+                    <th style="width:10%">SMS</th>
+                    <th style="width:10%">Email</th>
+                    <th style="width:10%">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="data in filterLayout(allkeys, 1)">
+                    <td>{{data.template_key}}</td>
+                    <td><label class="switch switch-sm" ng-if="data.sms_enabled">
+                        <input type="checkbox" ng-click="actionsForSMSAndEmail(0, data.email_enabled, data.template_key, data.layout_type)" checked/>
+                        <span></span>
+                    </label>
+                        <label class="switch switch-sm" ng-if="!data.sms_enabled">
+                            <input type="checkbox" ng-click="actionsForSMSAndEmail(1, data.email_enabled, data.template_key, data.layout_type)"/>
+                            <span></span>
+                        </label>
+                    </td>
+                    <td>
+                        <label class="switch switch-sm" ng-if="data.email_enabled">
+                            <input type="checkbox" ng-click="actionsForSMSAndEmail(data.sms_enabled, 0, data.template_key, data.layout_type)"
+                                   checked/>
+                            <span></span>
+                        </label>
+                        <label class="switch switch-sm" ng-if="!data.email_enabled">
+                            <input type="checkbox" ng-click="actionsForSMSAndEmail(data.sms_enabled, 1, data.template_key, data.layout_type)" />
+                            <span></span>
+                        </label>
+                    </td>
+                    <td><em class="fa fa-pencil custom-pencil" ng-click="addNewNotificationDialog(data.template_key,data.email_text,data.sms_text,data.email_subject,data.sms_enabled,data.email_enabled, data.layout_type)"></em></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div ng-if="workflow==1">
+            <h5>Appointment</h5>
+        </div>
+        <div class="table-responsive" ng-if="workflow==1">
+            <table class="table" style="background-color: #ececec;">
+                <thead>
+                <tr>
+                    <th style="width:50%">Triggers</th>
+                    <th style="width:10%">SMS</th>
+                    <th style="width:10%">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="data in filterLayout(allkeys, 2)">
+                    <td>{{data.template_key}}</td>
+                    <td><label class="switch switch-sm" ng-if="data.sms_enabled">
+                        <input type="checkbox" ng-click="actionsForSMSAndEmail(0, data.email_enabled, data.template_key, data.layout_type)" checked/>
+                        <span></span>
+                    </label>
+                        <label class="switch switch-sm" ng-if="!data.sms_enabled">
+                            <input type="checkbox" ng-click="actionsForSMSAndEmail(1, data.email_enabled, data.template_key, data.layout_type)"/>
+                            <span></span>
+                        </label>
+                    </td>
+                    <td><em class="fa fa-pencil custom-pencil" ng-click="addNewNotificationDialog(data.template_key,data.email_text,data.sms_text,data.email_subject,data.sms_enabled,data.email_enabled, data.layout_type)"></em></td>
+                </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+
+        <div ng-if="workflow==2">
+            <h5>Field Workforce</h5>
+        </div>
+        <div class="table-responsive" ng-if="workflow==2">
+            <table class="table" style="background-color: #ececec;">
+                <thead>
+                <tr>
+                    <th style="width:50%">Triggers</th>
+                    <th style="width:10%">SMS</th>
+                    <th style="width:10%">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="data in filterLayout(allkeys, 3)">
+                    <td>{{data.template_key}}</td>
+                    <td><label class="switch switch-sm" ng-if="data.sms_enabled">
+                        <input type="checkbox" ng-click="actionsForSMSAndEmail(0, data.email_enabled, data.template_key, data.layout_type)" checked/>
+                        <span></span>
+                    </label>
+                        <label class="switch switch-sm" ng-if="!data.sms_enabled">
+                            <input type="checkbox" ng-click="actionsForSMSAndEmail(1, data.email_enabled, data.template_key, data.layout_type)"/>
+                            <span></span>
+                        </label>
+                    </td>
+                    <td><em class="fa fa-pencil" ng-click="addNewNotificationDialog(data.template_key,data.email_text,data.sms_text,data.email_subject,data.sms_enabled,data.email_enabled, data.layout_type)"></em></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
+</div>
+
+<script type="text/ng-template" id="addNotificationDialogId">
+    <div class="ngdialog-message">
+        <h4 style="margin-top:10px; font-size:14px">{{addNotification.name}}</h4>
+
+        <form method="post" validate-form="" novalidate="" ng-submit="addNewNotification()" id="add-notification" name="formValidate">
+            <div class="panel" style="margin-bottom: 0">
+                <div class="panel-body" style="padding:0">
+                    <div class="{{workflow == 0 ? 'col-lg-6' : 'col-lg-12' }}">
+                        <div class="form-group">
+                            <label class="checkbox-inline c-checkbox">
+                                <input id="inlineCheckbox10" type="checkbox" value="1"
+                                       ng-model="addNotification.type"
+                                       aria-label="Toggle ngHide"
+                                       ng-click="setNotificationOptions(addNotification.name)"/>
+                                <span class="fa fa-check"></span>SMS
+                            </label>
+
+                        </div>
+
+
+                        <div>
+                            <div class="panel panel-default" id="smsPanel" style="margin-bottom: 0">
+                                <div class="panel-body" style="margin-bottom: 0">
+                                    <div class="form-group">
+                                        <label class="control-label">Message</label>
+
+                                        <div id="message-tag-div">
+                                            <select name="select-tag" ng-model="addNotification.select1"
+                                                    class="form-control" ng-change="insertMessageTag()" id="smsSelect">
+                                                <option value="">Insert Tag</option>
+                                                <option ng-repeat="tags in alltags" ng-value="tags"
+                                                        ng-model="template_tag">
+                                                    {{tags}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <textarea my-text="" type="text" name="message" required="required"
+                                            class="form-control animate-hide"
+                                            ng-model="addNotification.smsmessage" style="margin-top:22px;" rows="5" ng-show="SMSBox" id="smsmessge" maxlength="300"> </textarea>
+                                    </div>
+                                    <span class="text-muted" style="margin-top: -14px;float: right;">{{300 - addNotification.smsmessage.length}} left</span>
+                                    <div class="form-group" >
+                                        <label class="control-label">Preview</label>
+                                        <textarea type="text" name="preview" required="required" class="form-control"
+                                                  ng-model="addNotification.preview" rows="5" disabled></textarea>
+                                   </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6" ng-if="workflow!=1 && workflow!=2">
+                        <div class="form-group" id="emailPanel-form-group">
+                            <div style="float:left;">
+                                <label class="checkbox-inline c-checkbox">
+                                    <input id="inlineCheckbox20" type="checkbox" value="2"
+                                           ng-model="addNotification.type1" aria-label="Toggle ngHide"
+                                           ng-click="setFocus(addNotification.name)"/>
+                                    <span class="fa fa-check"></span>Email</label>
+
+                            </div>
+                        </div>
+                        <div style="margin-top:35px;">
+                            <div class="panel panel-default" id="emailPanel" style="margin-bottom: 0">
+                                <div class="panel-body" style="margin-bottom: 0">
+
+                                    <div class="form-group">
+                                        <label class="control-label">Message</label>
+
+                                        <div id="message-tag-div1">
+                                            <select name="select-tag" ng-model="addNotification.select2"
+                                                    class="form-control" ng-change="insertMessageTag2()"
+                                                    id="emailSelect">
+                                                <option value="">Insert Tag</option>
+                                                <option ng-repeat="tags in alltags" ng-value="tags"
+                                                        ng-model="template_tag">
+                                                    {{tags}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group form-group" style="margin-top: 20px;">
+                                            <span class="input-group-addon text-sm">Subject:</span>
+                                            <input type="text" class="form-control" ng-model="addNotification.subject"
+                                                   id="subject"/>
+                                        </div>
+
+                                        <div id="emailmessagediv" contenteditable="true" ng-model="addNotification.emailmessage"
+                                             style="border:1px solid #ECECEC;padding: 15px;font-size:12px !important;"
+                                             data-parsley-maxlength="160"></div>
+                                    </div>
+                                    <div class="form-group" >
+                                        <div class="btn btn-primary" ng-click="previewEmail()">Preview</div>
+                                        <!--<div ng-bind-html="addNotification.preview1" ng-model="addNotification.preview1"-->
+                                             <!--style="border:1px solid #ECECEC;min-height:180px;padding: 15px;background-color: #edf1f2;font-size:12px !important;"></div>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="panel-footer">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="button" ng-click="closeThisDialog(0)" class="btn btn-default">Cancel
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</script>
+
+<script type="text/ng-template" id="confirenablemmessage">
+    <div class="ngdialog-message"><h3>Are you sure you want to enable this notification?</h3>
+        <button type="button" ng-click="confirm(confirmValue)" class="btn btn-small btn-danger mr">Confirm</button>
+        <button type="button" ng-click="closeThisDialog('button')" class="btn btn-default">Cancel</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="confirmdisablemessage">
+    <div class="ngdialog-message"><h3>Are you sure you want to disable this notification?</h3>
+        <button type="button" ng-click="confirm(confirmValue)" class="btn btn-small btn-danger mr">Confirm</button>
+        <button type="button" ng-click="closeThisDialog('button')" class="btn btn-default">Cancel</button>
+    </div>
+</script>

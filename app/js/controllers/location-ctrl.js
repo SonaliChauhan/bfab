@@ -20,12 +20,9 @@ App.controller('LocationController', function ($scope, $http, $route, $cookieSto
             data.forEach(function (column) {
 //console.log(column.id);
                 var d = {
-                    pin_code: "",
                     id:"",
                     city_name: ""
                 };
-
-                d.pin_code = column.pincode;
                 d.id = column.id;
                 d.city_name = column.city_name;
                 dataArray.push(d);
@@ -87,17 +84,7 @@ App.controller('LocationController', function ($scope, $http, $route, $cookieSto
     
     $scope.addLocation = function () {
 
-        if ($scope.location.pin_code == undefined) {
-            ngDialog.open({
-                template: '<p class="del-dialog">Please fill the pin code !!</p>',
-                plain: true,
-                className: 'ngdialog-theme-default'
-
-            });
-            return false;
-
-        }
-        else if ($scope.location.city_name == undefined) {
+        if ($scope.location.city_name == undefined) {
             ngDialog.open({
                 template: '<p class="del-dialog">Please enter city !!</p>',
                 plain: true,
@@ -110,7 +97,6 @@ App.controller('LocationController', function ($scope, $http, $route, $cookieSto
         $.post(MY_CONSTANT.url + '/add_city',   
             {
                 access_token: $cookieStore.get('obj').accesstoken,
-                pincode:$scope.location.pin_code,
                 name: $scope.location.city_name
             },
             function (data) {

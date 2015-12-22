@@ -55,18 +55,15 @@
                             <td>{{data.cost}}</td>
 
                                 <td ng-switch="data.is_block">
-                                    {{data.is_block}}
-                                    <div>
-                                    <button ng-switch-when="1" ng-click="changeStatus(0,data.service_id)" title="Unblock"
-                                            class="btn btn-sm btn-success pull-ext" style="width: 30px;">
-                                        <em class="fa fa-unlock"></em>
-                                    </button>
+                                    <!--<button ng-switch-when="1" ng-click="changeStatus(0,data.service_id)" title="Unblock"-->
+                                            <!--class="btn btn-sm btn-success pull-ext" style="width: 30px;">-->
+                                        <!--<em class="fa fa-unlock"></em>-->
+                                    <!--</button>-->
 
-                                    <button ng-switch-default="0" ng-click="changeStatus(1,data.service_id)" title="Block"
-                                            class="btn btn-sm btn-success pull-ext">
-                                        <em class="fa fa-lock"></em>
-                                    </button>
-                                        </div>
+                                    <!--<button ng-switch-when="0" ng-click="changeStatus(1,data.service_id)" title="Block"-->
+                                            <!--class="btn btn-sm btn-success pull-ext">-->
+                                        <!--<em class="fa fa-lock"></em>-->
+                                    <!--</button>-->
                                     <div>
                                         <button ng-switch-when="1" ng-click="changeStatus(0,data.service_id)" title="Unblock"
                                                 class="btn btn-sm btn-success pull-ext" style="width: 30px;">
@@ -77,14 +74,14 @@
                                             <em class="fa fa-lock"></em>
                                         </button>
                                         <button ng-click="editServiceDialog(data)" title="Edit"
-                                                class="btn btn-sm btn-success pull-ext">
+                                                class="btn btn-sm btn-danger pull-ext">
                                             <em class="fa fa-edit"></em>
                                         </button>
 
-                                   <button ng-switch-when="0" ng-click="changeStatus(1,data.service_id)" title="Delete"
-                                                class="btn btn-sm btn-danger pull-ext">
-                                            <em class="fa fa-trash-o"></em>
-                                        </button>
+                                   <!--<button ng-switch-when="0" ng-click="changeStatus(1,data.service_id)" title="Delete"-->
+                                                <!--class="btn btn-sm btn-danger pull-ext">-->
+                                            <!--<em class="fa fa-trash-o"></em>-->
+                                        <!--</button>-->
                                     </div>
                                     </td>
                         </tr>

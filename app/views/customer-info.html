@@ -43,6 +43,7 @@
                             <th style="width:10px">End Time</th>
                             <th style="width:10px">Payable Cost($)</th>
                             <th style="width:10px">Artist Name</th>
+                            <th style="width:10px">Notes</th>
                             <th style="width:10px">Status</th>
                             <th style="width:10px">Rating</th>
                         </tr>
@@ -58,6 +59,7 @@
                             <td>{{data.end_time}}</td>
                             <td>{{data.cost}}</td>
                             <td>{{data.artist_name}}</td>
+                            <td>{{data.notes}}</td>
                             <td ng-switch="data.status">
                                 <span ng-switch-when="0" class="label label-info">Booked</span>
                                 <span ng-switch-when="1" class="label label-success">Confirmed</span>
@@ -103,6 +105,10 @@
                             </th>
                             <th>
                                 <input type="text" name="filter_meal_description" placeholder="Artist Name"
+                                       class="form-control input-sm datatable_input_col_search"/>
+                            </th>
+                            <th>
+                                <input type="text" name="filter_meal_description" placeholder="Notes"
                                        class="form-control input-sm datatable_input_col_search"/>
                             </th>
                             <th>

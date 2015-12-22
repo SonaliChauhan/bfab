@@ -6,6 +6,7 @@ App.controller('CustomersController', function ($scope, $http, $location, $cooki
     $scope.total_pages;
     $scope.last_page;
     $scope.page_no = 1;
+    $scope.index=0;
 
     $scope.options = [10,25,50,100];
     $scope.page_length = $scope.options[0];
@@ -15,6 +16,7 @@ App.controller('CustomersController', function ($scope, $http, $location, $cooki
 
     var putData = function(column, dataArray, index) {
         var d = {
+            index:"",
             cust_id: "",
             name: "",
             phone_no: "",
@@ -24,6 +26,7 @@ App.controller('CustomersController', function ($scope, $http, $location, $cooki
             is_block: ""
         };
 
+        d.index=index;
         d.cust_id = column.user_id;
         d.name = column.first_name + " " + column.last_name;
         d.phone_no = column.mobile;
@@ -35,29 +38,29 @@ App.controller('CustomersController', function ($scope, $http, $location, $cooki
 
     };
     var createPageArray = function(start, end) {
-        var page_arr = [];
-        start = start<2?2:start;
-        end = end>$scope.total_pages-1?$scope.total_pages-1:end;
-        for(var i=start;i<=end;i++) {
-            page_arr.push(i);
-        }
-        $scope.pages = page_arr;
-    };
-    $scope.getCustomerList = function (page_number) {
-        $scope.last_page = $scope.page_no;
-        $scope.page_no = page_number;
-        var index = (page_number - 1) * $scope.page_length;
-        $.post(MY_CONSTANT.url + '/customer_list_paging', {
-            access_token: $cookieStore.get('obj').accesstoken,
-            page_no: page_number,
-            length: $scope.page_length
-        }, function (data) {
-            var dataArray = [];
-            data = JSON.parse(data);
-            if (data.error) {
-                ngDialog.open({
-                    template: '<p>Something went wrong !</p>',
-                    className: 'ngdialog-theme-default',
+                    var page_arr = [];
+                start = start<2?2:start;
+                end = end>$scope.total_pages-1?$scope.total_pages-1:end;
+                for(var i=start;i<=end;i++) {
+                    page_arr.push(i);
+                }
+                $scope.pages = page_arr;
+            };
+            $scope.getCustomerList = function (page_number) {
+                $scope.last_page = $scope.page_no;
+                $scope.page_no = page_number;
+                var index = (page_number - 1) * $scope.page_length;
+                $.post(MY_CONSTANT.url + '/customer_list_paging', {
+                    access_token: $cookieStore.get('obj').accesstoken,
+                    page_no: page_number,
+                    length: $scope.page_length
+                }, function (data) {
+                    var dataArray = [];
+                    data = JSON.parse(data);
+                    if (data.error) {
+                        ngDialog.open({
+                            template: '<p>Something went wrong !</p>',
+                            className: 'ngdialog-theme-default',
                     plain: true,
                     showClose: false,
                     closeByDocument: false,
@@ -140,6 +143,7 @@ $scope.$watch('search', function(value) {
     $scope.page_no = 1;
     searchArray = [];
     var index = 0;
+    value = value.toLowerCase();
     if(!completeList.length)
         getCustomers();
     else {
@@ -239,6 +243,7 @@ App.controller('CustomerInfoController', function ($scope, $http, $location, $co
                 service_date: "",
                 start_time: "",
                 end_time: "",
+                notes:"",
                 status: "",
                 rating: "",
                 cost: "",
@@ -266,6 +271,7 @@ App.controller('CustomerInfoController', function ($scope, $http, $location, $co
             d.service_location = column.address;
             d.service_date = column.service_date;
             d.rating = column.rating;
+            d.notes=column.notes;
             d.cost = column.cost;
             d.service_name = column.service_name;
             dataArray.push(d);

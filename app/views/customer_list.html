@@ -14,7 +14,7 @@
                         <div class="row">
                             <div class="col-xs-6" ng-show="pageLoaded">
                                 <label>
-                                    <select class="form-control input-sm" ng-model="page_length" ng-change="getCustomerList(1)">
+                                    <select class="form-control input-sm" ng-model="page_length" ng-change="getCustomersList(1)">
                                         <option ng-repeat="option in options" value={{option}}>{{option}}</option>
                                     </select>
                                 </label>
@@ -50,7 +50,7 @@
                         <tbody>
                         <tr ng-repeat="data in list">
 
-                            <td><a class="link_color" ui-sref="app.customerInfo({id: data.cust_id})">{{$index}}</a>
+                            <td><a class="link_color" ui-sref="app.customerInfo({id: data.cust_id})">{{data.index}}</a>
                             </td>
                             <td><a class="link_color" ui-sref="app.customerInfo({id: data.cust_id})">{{data.name}}</a>
                             </td>

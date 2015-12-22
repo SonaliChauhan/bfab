@@ -1,0 +1,56 @@
+<span ng-controller="MailController">
+<h3>Emails
+    <small>Edit and send e-mails.</small>
+</h3>
+<div class="container-fluid">
+    <form method="post" validate-form="" novalidate="" ng-submit="editMailContent()">
+        <!-- START panel-->
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="panel panel-default faq_panel">
+                <div class="panel-heading text-center">
+                    Emails  
+                </div>
+                <div class="panel-body">
+                    <div class="row margin-input">
+                        <div class="col-md-6">
+                            <ui-select theme="bootstrap" ng-model="email.template" value="template" ng-change="insert_template()">
+                                <ui-select-match placeholder="Select template">{{$select.selected.template_name}}</ui-select-match>
+                                <ui-select-choices repeat="template in templates | filter:$select.search">
+                                    {{template.template_name}}
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-2">
+                            <ui-select theme="bootstrap" ng-model="email.tag" value="tag" ng-change="insert_tag()">
+                                <ui-select-match placeholder="Select tag">{{$select.selected}}</ui-select-match>
+                                <ui-select-choices repeat="tag in tags | filter:$select.search">
+                                    {{tag}}
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="row margin-input">
+                        <div class="form-group col-xs-6">
+                            <label>Subject:</label>
+                            <input type="text" required="required" class="form-control" 
+                                   ng-model="email.template.template_subject"  />
+                        </div>
+                    </div>
+                    <label>Content:</label>
+                    <div id="ck_editor" ckeditor="options" ng-model="mail"></div>
+                </div>
+            </div>
+        </div>
+        <!-- END panel -->
+
+        <div class="panel panel-default">
+            <div class="panel-footer center">
+                <button type="submit" class="btn btn-primary">SEND</button>
+            </div>
+        </div>
+    </form>
+</div>
+</span>
+
+<!-- END panel -->

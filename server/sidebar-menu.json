@@ -101,6 +101,15 @@
     "text":"Location",
     "sref":"app.location",
     "icon":"icon-emoticon-smile"
+  },
+  {
+    "text": "Emails",
+    "sref": "app.mail",
+    "icon": "fa fa-envelope"
+  },
+  {
+    "text":"FAQ",
+    "sref":"app.faq",
+    "icon": "icon-pencil"
   }
-
 ]

@@ -16,7 +16,7 @@ if (typeof $ === 'undefined') {
 // APP START
 // ----------------------------------- 
 
-var App = angular.module('angle', ['ngRoute', 'ngAnimate', 'ngStorage', 'ngCookies', 'pascalprecht.translate', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'cfp.loadingBar', 'ngSanitize', 'ngResource', 'ui.utils'])
+var App = angular.module('angle', ['ngRoute', 'ngAnimate', 'ngStorage', 'ngCookies', 'pascalprecht.translate', 'ui.bootstrap', 'ui.router', 'oc.lazyLoad', 'cfp.loadingBar', 'ngSanitize', 'ngResource', 'ui.utils','ckeditor'])
         .run(["$rootScope", "$state", "$stateParams", '$window', '$templateCache', function($rootScope, $state, $stateParams, $window, $templateCache) {
                 // Set reference to access them from any scope
                 $rootScope.$state = $state;

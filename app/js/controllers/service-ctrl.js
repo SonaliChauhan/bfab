@@ -43,6 +43,7 @@ App.controller('ServiceController', function ($scope, $http, $location, $cookies
                 d.instructions = column.instructions;
                 d.time = column.time;
                 d.cost = column.cost;
+                d.is_block = column.active_status;
                 dataArray.push(d);
 
             });
@@ -122,6 +123,79 @@ App.controller('ServiceController', function ($scope, $http, $location, $cookies
             });
 
     };
+
+    // Change Status Dialog
+    $scope.changeStatus = function (status, serviceId) {
+        $scope.service_val = serviceId;
+        if (status == 1) {
+            $scope.stat = "block";
+            $scope.stat_btn = "Block";
+            $scope.status = 1;
+        }
+        else {
+            $scope.stat = "unblock";
+            $scope.stat_btn = "Unblock";
+            $scope.status = 0;
+        }
+        $scope.value = true;
+        $scope.addTeam = {};
+        ngDialog.open({
+            template: 'app/views/status-dialog.html',
+            className: 'ngdialog-theme-default',
+            scope: $scope
+        });
+    };
+
+    $scope.change = function () {
+
+        $.post(MY_CONSTANT.url + '/block_unblock_service',
+            {
+                access_token: $cookieStore.get('obj').accesstoken,
+                service_id: $scope.service_val,
+                new_block_status: $scope.status
+            },
+            function (data) {
+                $window.location.reload();
+
+            });
+    };
+
+//// Change Status Dialog
+//    $scope.changeStatus = function (status, userid) {
+//        $scope.user_val = userid;
+//        if (status == 1) {
+//            $scope.stat = "block";
+//            $scope.stat_btn = "Block";
+//            $scope.status = 1;
+//        }
+//        else {
+//            $scope.stat = "unblock";
+//            $scope.stat_btn = "Unblock";
+//            $scope.status = 0;
+//        }
+//        $scope.value = true;
+//        $scope.addTeam = {};
+//        ngDialog.open({
+//            template: 'app/views/status-dialog.html',
+//            className: 'ngdialog-theme-default',
+//            scope: $scope
+//        });
+//    };
+//
+//    $scope.change = function () {
+//
+//        $.post(MY_CONSTANT.url + '/block_unblock_service',
+//            {
+//                access_token: $cookieStore.get('obj').accesstoken,
+//                service_id: $scope.user_val,
+//                new_block_status: $scope.status
+//            },
+//            function (data) {
+//                $window.location.reload();
+//
+//            });
+//    };
+
 
 
     // Add Driver Dialog
@@ -246,8 +320,7 @@ App.controller('EditServiceController', function ($scope, $http, $location, $coo
                 heading: $scope.editService.desc_title,
                 description: $scope.editService.description,
                 instructions: $scope.content
-            }
-            ,
+            },
 
             function (data) {
                 data = JSON.parse(data);

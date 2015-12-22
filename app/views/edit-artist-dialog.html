@@ -1,0 +1,108 @@
+<div class="ngdialog-message" ng-controller="EditArtistController">
+    <h3>Edit Artist</h3>
+
+    <form method="post" name="artist_form" validate-form="" novalidate=""
+          ng-submit="artist_form.$valid && EditArtist()">
+        <div class="panel panel-default">
+
+            <div ng-show="successMsg" class="alert alert-success text-center">{{successMsg}}</div>
+            <div ng-show="errorMsg" class="alert alert-danger text-center">{{errorMsg}}</div>
+            <div class="panel-body" style="overflow: inherit;">
+                <div class="form-group">
+                    <label class="control-label">Artist Name</label>
+
+                    <div class="clearfix"> 
+                        <div class="col-sm-6 padding_left">
+                            <input type="text" name="team_name" required="required" class="form-control"
+                                   ng-model="editArtist.first_name" placeholder="First Name"/></div>
+                        <div class="col-sm-6 padding_right">
+                            <input type="text" name="team_name" required="required" class="form-control"
+                                   ng-model="editArtist.last_name" placeholder="Last Name"/></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Artist Phone No.</label>
+                    <input type="text" name="team_name" required="required" class="form-control" masked=""
+                           data-inputmask="'mask': '(999)-999-9999'"
+                           ng-model="editArtist.phone" placeholder="(123)-456-7890"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Gender</label>
+                    <div class="controls clearfix">
+                        <div class="radio c-radio gender">
+                            <label>
+                                <input type="radio" value="male" name="gender" checked=""
+                                       ng-model="editArtist.gender">
+                                <span class="fa fa-circle"></span>Male</label>
+                        </div>
+                        <div class="radio c-radio gender">
+                            <label>
+                                <input type="radio" value="female" name="gender"
+                                       ng-model="editArtist.gender">
+                                <span class="fa fa-circle"></span>Female</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Experience</label>
+                    <!--<input type="text" name="team_name" required="required" class="form-control"-->
+                    <!--ng-model="editArtist.experience" data-parsley-type="number" placeholder="years"/>-->
+                    <select name="type" class="form-control" ng-model="editArtist.experience" required="required">
+                        <option ng-repeat="option in options_exp" ng-value="option.value"
+                                ng-selected="option.name == editArtist.experience">{{option.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Qualification</label>
+                    <input type="text" name="team_name" required="required" class="form-control"
+                           ng-model="editArtist.qualification" placeholder="Qualification"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Service Category</label>
+                    <select name="type" class="form-control" ng-model="updateVal" required="required">
+                        <option ng-repeat="option in options_cat" ng-value="option.value"
+                                ng-selected="option.name == updateVal">{{option.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Service City</label>
+                    <ui-select multiple="" theme="bootstrap" ng-model="editArtist.city" ng-disabled="disabled">
+                        <ui-select-match placeholder="Service City">{{$item.name}}</ui-select-match>
+                        <ui-select-choices repeat="city in options_city | filter:$select.search">
+                            {{city.city_name}}
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Summary</label>
+                    <textarea type="text" name="team_name" required="required" class="form-control"
+                              ng-model="editArtist.summary" placeholder="Summary"></textarea>
+                </div>
+                <div class="form-group">
+                    <!--<div class="col-sm-6">-->
+                    <label class="control-label">Artist Image</label>
+                    <input filestyle="" type="file" accept="image/*" image="image"
+                           onchange="angular.element(this).scope().file_to_upload(this.files)"
+                           data-button-text="Single" data-class-button="btn btn-default"
+                           data-classinput="form-control inline" nv-file-select="" uploader="uploader"
+                           required="required"/>
+
+                    <div class="banner-image-div">
+                        <img id="thumbnil" class="banner-image image_customer"
+                             src="{{imgSrc || 'app/img/default.jpg'}} ">
+                    </div>
+                    <!--</div>-->
+                </div>
+                <input type="hidden" ng-model="editArtist.tech_id">
+            </div>
+            <div class="panel-footer">
+                <button type="submit" class="btn btn-info">Save</button>
+                <button type="button" ng-click="closeThisDialog(0)" class="btn btn-default">Cancel
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
